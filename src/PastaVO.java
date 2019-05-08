@@ -57,7 +57,17 @@ public class PastaVO extends DishVO {
 
 	@Override
 	String getNameOfDish() {
-		 return String.format("Pasta %s - %s", this.name, this.typeOfPasta);
+		StringBuffer sb = new StringBuffer(String.format("Pasta " + name + " - "));
+		if(typeOfPasta == 4) {
+			sb.append("Spaghetti  ");
+		} else if(typeOfPasta == 5) {
+			sb.append("Tortellini  ");
+		} else if(typeOfPasta == 6) {
+			sb.append("Gnocchi");
+		} else {
+			sb.append("Unknown");
+		}
+		return sb.toString();
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class OrderVO {
 	private java.time.LocalDateTime timestampStartedOrder;
 	private java.time.LocalDateTime timestampDeliveredOrder;
 	private static final int MAX_DISHES = 10;
-	private PizzaVO[] shoppingBasket;
+	private DishVO[] shoppingBasket;
 	private CustomerVO customer;
 	private int index;
 	
@@ -31,7 +31,7 @@ public class OrderVO {
 		setTimestampStartedOrder(timestampStartedOrder);
 		setTimestampDeliveredOrder(null);
 		setCustomer(customer);
-		this.shoppingBasket = new PizzaVO[MAX_DISHES];
+		this.shoppingBasket = new DishVO[MAX_DISHES];
 		index = 0;
 		
 	}
@@ -50,6 +50,7 @@ public class OrderVO {
 			return timestampDeliveredOrder.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh mm"));
 		}
 		return "Not available.";
+		//return String.format("From %1$tm/%1$td/%1$tY %$tH:%1$tM to" + "%2tm/%2$td/%2$tY %2$tH:%2$tM\n", timestampDeliveredOrder, null);
 	}
 	
 	//Verwaltungsmethoden
@@ -77,16 +78,29 @@ public class OrderVO {
 	}
 	
 	public String toString() {
-		StringBuilder text = new StringBuilder(String.format("Order: %s \n Started: %s\n Delivered: %s\n Customer: %s", this.orderNo, startedDateToString(), deliveredDateToString(), this.customer.toString()));  
+		StringBuffer sb = new StringBuffer(String.format("OrderVO %s from %s with delivery at %s\n of customer: %s %s, ID of customer: %s", this.orderNo, startedDateToString(), deliveredDateToString(), this.customer.firstName, this.customer.lastName, this.customer.getId()));
 		if(shoppingBasket != null) {
 			for(var i = 0; i < shoppingBasket.length; i++) {
-				if(shoppingBasket[i] != null) {
-					text.append("\n" + shoppingBasket[i].toString());
+				DishVO item = shoppingBasket[i];
+				if(item != null) {
+					sb.append("\n" + item.getNumberOfDish() + " " + item.getNameOfDish());
+				 
+					if(item.ingredients != null) {
+						for(var j= 0; j < item.ingredients.length; j++) {
+							if(item.ingredients[j] != null) {
+								sb.append(item.ingredients[j]);
+							}
+							if(j < item.ingredients.length - 1) {
+								sb.append(", ");
+							}
+						}
+					}
+					sb.append("\n\t\t\tPrice: " + item.price + " Euro");
 				}
 			}
 		}
-
-		return text.toString();
+		sb.append("\n\n");
+		return sb.toString();
 	}
 	
 	//Getter and setter
@@ -127,7 +141,7 @@ public class OrderVO {
 		return MAX_DISHES;
 	}
 	
-	public PizzaVO[] getShoppingBasket() {
+	public DishVO[] getShoppingBasket() {
 		return shoppingBasket;
 	}
 	
@@ -145,7 +159,7 @@ public class OrderVO {
 	
 	//add dish to shopping basket
 	
-	public void addDish(PizzaVO dish) {
+	public void addDish(DishVO dish) {
 		if (index < MAX_DISHES) {
 			shoppingBasket[index] = dish;
 			index++;
@@ -165,7 +179,7 @@ public class OrderVO {
 	
 	//get dish at index from shopping basket
 	
-	public PizzaVO getDish(int index) {
+	public DishVO getDish(int index) {
 		if (shoppingBasket[index] != null) {
 			return shoppingBasket[index];
 		} else {

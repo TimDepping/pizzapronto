@@ -113,7 +113,7 @@ public class CustomerVO extends PersonVO {
 	}
 
 	public String toString() {
-		return String.format("Customer: %s %s\n gender: %s\n date of birth: %s, age: %s", this.firstName, this.lastName, this.gender, dobToString(), this.calculateAge());
+		return String.format("Customer: %s %s\n gender: %s\n date of birth: %s, age: %s\n\n", this.firstName, this.lastName, this.gender, dobToString(), this.calculateAge());
 	}
 	
 	//Getter and setter

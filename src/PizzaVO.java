@@ -75,8 +75,16 @@ public class PizzaVO extends DishVO {
 
 	@Override
 	String getNameOfDish() {
-		return String.format("Pizza %s - %s", this.name, this.size);
+		StringBuffer sb = new StringBuffer(String.format("Pizza " + name + " - "));
+		if(size == 1) {
+			sb.append("Normal  ");
+		} else {
+			sb.append("Grande  ");
+		}
+		return sb.toString();
 	}
+	
+	
 
 	@Override
 	int getNumberOfDish() {

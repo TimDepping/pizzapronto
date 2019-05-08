@@ -35,7 +35,7 @@ public class ChefVO extends EmployeeVO {
 	
 
 	public String toString() {
-		return String.format("Chef: %s %s", this.firstName, this.lastName);
+		return String.format("Chef: %s %s\n", this.firstName, this.lastName);
 	}
 	
 	//Getter and setter
