@@ -54,7 +54,7 @@ public class MenuVO {
 		DecimalFormat dFormat = new DecimalFormat(".00"); // Format the price
 		sb.append("MENU PIZZA PRONTO\n\n");
 
-		// Pizzas
+		// pizzas
 		sb.append(
 				"Prima special pizzas: \n\t1 normal (Diameter approx. 26 cm) and \n\t2 grande (Diameter approx. 32 cm)\n");
 		do {
@@ -73,7 +73,7 @@ public class MenuVO {
 
 		} while (i < dishes.length && dishes[i] instanceof PizzaVO);
 
-		// Pastas
+		// pastas
 		sb.append("\nPrima special pastas: \n\t4 Spaghetti\n\t5 Tortellini\n\t6 Gnocchi\n");
 		do {
 			sb.append(dishes[i].getNumber() + "\t");
@@ -89,7 +89,7 @@ public class MenuVO {
 
 		} while (i < dishes.length && dishes[i] instanceof PastaVO);
 
-		// Desserts
+		// desserts
 		sb.append("\nPrima desserts:\n");
 		do {
 			sb.append(dishes[i].getNumber() + "\t");
@@ -104,7 +104,7 @@ public class MenuVO {
 		return sb.toString();
 	}
 
-	// Getter and setter
+	// getters and setters
 
 	public static int getNUMBER_OF_DISHES() {
 		return NUMBER_OF_DISHES;

@@ -1,21 +1,23 @@
 public class PizzaVO extends DishVO {
-	
+
 	/**
 	 * PizzaVO represents a pizza
+	 * 
 	 * @author Tim Depping
 	 */
 
 	private int size;
-	
+
 	/**
 	 * constructor with all params
+	 * 
 	 * @param number
 	 * @param name
 	 * @param ingredients
 	 * @param price
 	 * @param size
 	 */
-	
+
 	PizzaVO(int number, String name, String[] ingredients, float price, int size) {
 		this.number = number;
 		this.name = name;
@@ -23,34 +25,36 @@ public class PizzaVO extends DishVO {
 		this.price = price;
 		setSize(size);
 	}
-	
+
 	/**
 	 * constructor without size
+	 * 
 	 * @param number
 	 * @param name
 	 * @param ingredients
 	 * @param price
 	 */
-	
+
 	PizzaVO(int number, String name, String[] ingredients, float price) {
 		this(number, name, ingredients, price, 0);
 	}
-	
+
 	/**
 	 * Default constructor
 	 */
-	
+
 	PizzaVO() {
 		this(0, null, null, 0.0f, 0);
 	}
-	
-	//Verwaltungsmethoden
 
+	// Verwaltungsmethoden
+
+	@Override
 	public Object clone() {
 		PizzaVO pizza = new PizzaVO(this.number, this.name, this.ingredients, this.price, this.size);
 		return pizza;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,19 +76,20 @@ public class PizzaVO extends DishVO {
 			return false;
 		return true;
 	}
-	
+
+	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer(getNumberOfDish() + " " + getNameOfDish());
-		if(size == 1) {
+		if (size == 1) {
 			sb.append("Normal  ");
 		} else {
 			sb.append("Grande  ");
 		}
-		for(var i= 0; i < ingredients.length; i++) {
-			if(ingredients[i] != null) {
+		for (var i = 0; i < ingredients.length; i++) {
+			if (ingredients[i] != null) {
 				sb.append(ingredients[i]);
 			}
-			if(i < ingredients.length - 1) {
+			if (i < ingredients.length - 1) {
 				sb.append(", ");
 			}
 		}
@@ -97,13 +102,13 @@ public class PizzaVO extends DishVO {
 		StringBuffer sb = new StringBuffer(String.format("Pizza " + name + " - "));
 		return sb.toString();
 	}
-	
-	
 
 	@Override
 	int getNumberOfDish() {
 		return number * 10 + size;
 	}
+
+	// getters and setters
 
 	public int getSize() {
 		return size;
@@ -112,5 +117,5 @@ public class PizzaVO extends DishVO {
 	public void setSize(int size) {
 		this.size = size;
 	}
-	
+
 }

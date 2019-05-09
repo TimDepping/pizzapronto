@@ -119,7 +119,7 @@ public class CustomerVO extends PersonVO {
 				this.lastName, this.gender, dobToString(), this.calculateAge());
 	}
 
-	// Getter and setter
+	// getters and setters
 
 	public String getGender() {
 		return gender;

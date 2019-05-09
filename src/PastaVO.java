@@ -98,7 +98,7 @@ public class PastaVO extends DishVO {
 		return typeOfPasta * 100 + number;
 	}
 
-	// Getter and setter
+	// getters and setters
 
 	public int getTypeOfPasta() {
 		return typeOfPasta;

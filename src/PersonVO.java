@@ -95,7 +95,7 @@ public class PersonVO {
 				this.houseNumber);
 	}
 
-	// Getter and Setter
+	// getters and setters
 
 	protected String getLastName() {
 		return lastName;

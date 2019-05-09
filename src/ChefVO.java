@@ -39,7 +39,7 @@ public class ChefVO extends EmployeeVO {
 		return String.format("Chef: %s %s\n", this.firstName, this.lastName);
 	}
 
-	// Getter and setter
+	// getters and setters
 
 	public Color getColorApron() {
 		return colorApron;

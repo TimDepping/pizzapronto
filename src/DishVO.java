@@ -42,7 +42,7 @@ public abstract class DishVO {
 	}
 
 	/**
-	 * Default constructor
+	 * default constructor
 	 */
 
 	DishVO() {
@@ -110,7 +110,7 @@ public abstract class DishVO {
 
 	abstract int getNumberOfDish();
 
-	// Getter and setter
+	// getters and setters
 
 	public int getNumber() {
 		return number;

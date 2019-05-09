@@ -65,7 +65,7 @@ public abstract class EmployeeVO extends PersonVO {
 				this.lastName, this.personnelNo, this.salary, this.vacationDays);
 	}
 
-	// Getter and setter
+	// getters and setters
 
 	public String getPersonnelNo() {
 		return personnelNo;
