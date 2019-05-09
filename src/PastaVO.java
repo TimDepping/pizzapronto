@@ -54,6 +54,20 @@ public class PastaVO extends DishVO {
 			return false;
 		return true;
 	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(getNumberOfDish() + " " + getNameOfDish());
+		for(var i= 0; i < ingredients.length; i++) {
+			if(ingredients[i] != null) {
+				sb.append(ingredients[i]);
+			}
+			if(i < ingredients.length - 1) {
+				sb.append(", ");
+			}
+		}
+		sb.append("\n\t\t\tPrice: " + price + " Euro");
+		return sb.toString();
+	}
 
 	@Override
 	String getNameOfDish() {
@@ -63,7 +77,7 @@ public class PastaVO extends DishVO {
 		} else if(typeOfPasta == 5) {
 			sb.append("Tortellini  ");
 		} else if(typeOfPasta == 6) {
-			sb.append("Gnocchi");
+			sb.append("Gnocchi  ");
 		} else {
 			sb.append("Unknown");
 		}

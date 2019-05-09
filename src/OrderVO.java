@@ -10,6 +10,7 @@ public class OrderVO {
 	
 	private static int nextOrderNo = 0;
 	private int orderNo;
+	private String state;
 	private java.time.LocalDateTime timestampStartedOrder;
 	private java.time.LocalDateTime timestampDeliveredOrder;
 	private static final int MAX_DISHES = 10;
@@ -33,7 +34,16 @@ public class OrderVO {
 		setCustomer(customer);
 		this.shoppingBasket = new DishVO[MAX_DISHES];
 		index = 0;
+		setState("started");
 		
+	}
+	
+	public float calculatePriceDishes() {
+		float sum = 0.0f;
+		for(int i = 0; i < shoppingBasket.length; i++) {
+			sum += shoppingBasket[i].getPrice();
+		}
+		return sum;
 	}
 	
 	//methods to convert timestamps to strings
@@ -83,19 +93,7 @@ public class OrderVO {
 			for(var i = 0; i < shoppingBasket.length; i++) {
 				DishVO item = shoppingBasket[i];
 				if(item != null) {
-					sb.append("\n" + item.getNumberOfDish() + " " + item.getNameOfDish());
-				 
-					if(item.ingredients != null) {
-						for(var j= 0; j < item.ingredients.length; j++) {
-							if(item.ingredients[j] != null) {
-								sb.append(item.ingredients[j]);
-							}
-							if(j < item.ingredients.length - 1) {
-								sb.append(", ");
-							}
-						}
-					}
-					sb.append("\n\t\t\tPrice: " + item.price + " Euro");
+					sb.append("\n" + item.toString());
 				}
 			}
 		}
@@ -141,16 +139,16 @@ public class OrderVO {
 		return MAX_DISHES;
 	}
 	
-	public DishVO[] getShoppingBasket() {
-		return shoppingBasket;
-	}
-	
 	public int getNumberOfDishes() {
 		return index;
 	}
 	
-	public void setShoppingBasket(PizzaVO[] shoppingBasket) {
+	public void setShoppingBasket(DishVO[] shoppingBasket) {
 		this.shoppingBasket = shoppingBasket;
+	}
+	
+	public DishVO[] getShoppingBasket() {
+		return shoppingBasket;
 	}
 	
 	public int getIndex() {
@@ -185,6 +183,14 @@ public class OrderVO {
 		} else {
 			return null;
 		}
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 }

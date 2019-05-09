@@ -1,5 +1,5 @@
 
-public class EmployeeVO extends PersonVO {
+public abstract class EmployeeVO extends PersonVO {
 	protected String personnelNo;
 	protected float salary;
 	protected int vacationDays;

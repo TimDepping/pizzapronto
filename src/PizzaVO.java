@@ -72,15 +72,29 @@ public class PizzaVO extends DishVO {
 			return false;
 		return true;
 	}
-
-	@Override
-	String getNameOfDish() {
-		StringBuffer sb = new StringBuffer(String.format("Pizza " + name + " - "));
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(getNumberOfDish() + " " + getNameOfDish());
 		if(size == 1) {
 			sb.append("Normal  ");
 		} else {
 			sb.append("Grande  ");
 		}
+		for(var i= 0; i < ingredients.length; i++) {
+			if(ingredients[i] != null) {
+				sb.append(ingredients[i]);
+			}
+			if(i < ingredients.length - 1) {
+				sb.append(", ");
+			}
+		}
+		sb.append("\n\t\t\tPrice: " + price + " Euro");
+		return sb.toString();
+	}
+
+	@Override
+	String getNameOfDish() {
+		StringBuffer sb = new StringBuffer(String.format("Pizza " + name + " - "));
 		return sb.toString();
 	}
 	

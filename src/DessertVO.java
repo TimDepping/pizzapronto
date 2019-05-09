@@ -23,6 +23,12 @@ public class DessertVO extends DishVO {
 		return dessert;
 	}
 	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(getNumberOfDish() + " " + getNameOfDish());
+		sb.append("\n\t\t\tPrice: " + price + " Euro");
+		return sb.toString();
+	}
+	
 	@Override
 	String getNameOfDish() {
 		return String.format("%s", this.name);

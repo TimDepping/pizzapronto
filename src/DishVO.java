@@ -80,7 +80,7 @@ public abstract class DishVO {
 	}
 	
 	public String toString() {
-		return String.format("Dish: %s %s %s \n ingredients: %s", getNumberOfDish(), getNameOfDish(), this.price, ingredientsToString()); 
+		return String.format("Dish: %s %s, Price: %s Euro", getNumberOfDish(), getNameOfDish(), this.price); 
 	}
 	
 	/*

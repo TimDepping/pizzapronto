@@ -24,7 +24,7 @@ public class DeliveryManVO extends EmployeeVO {
 	}
 	
 	public String toString() {
-		return String.format("DeliveryMan: %s %s\n driver licence: %s", this.firstName, this.lastName, this.driverLicence);
+		return String.format("DeliveryMan: %s %s\n driver licence: %s\n", this.firstName, this.lastName, this.driverLicence);
 	}
 	
 }
