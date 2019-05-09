@@ -1,9 +1,28 @@
 
 public abstract class EmployeeVO extends PersonVO {
+
+	/**
+	 * Employee represents a employee
+	 * 
+	 * @author Tim Depping
+	 */
+
 	protected String personnelNo;
 	protected float salary;
 	protected int vacationDays;
-	
+
+	/**
+	 * constructor with all params
+	 * 
+	 * @param lastName
+	 * @param firstName
+	 * @param street
+	 * @param houseNumber
+	 * @param personnelNo
+	 * @param salary
+	 * @param vacationDays
+	 */
+
 	public EmployeeVO(String lastName, String firstName, String street, int houseNumber, String personnelNo,
 			float salary, int vacationDays) {
 		super(lastName, firstName, street, houseNumber);
@@ -11,9 +30,9 @@ public abstract class EmployeeVO extends PersonVO {
 		setSalary(salary);
 		setVacationDays(vacationDays);
 	}
-	
-	//Klassenmethoden
-	
+
+	// Klassenmethoden
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -39,12 +58,14 @@ public abstract class EmployeeVO extends PersonVO {
 		}
 		return true;
 	}
-	
+
+	@Override
 	public String toString() {
-		return String.format("Employee: %s %s\n personnelNo: %s\n salary: %s, vacationDays: %s", this.firstName, this.lastName, this.personnelNo, this.salary, this.vacationDays);
+		return String.format("Employee: %s %s\n personnelNo: %s\n salary: %s, vacationDays: %s", this.firstName,
+				this.lastName, this.personnelNo, this.salary, this.vacationDays);
 	}
 
-	//Getter and setter
+	// Getter and setter
 
 	public String getPersonnelNo() {
 		return personnelNo;
@@ -69,7 +90,5 @@ public abstract class EmployeeVO extends PersonVO {
 	public void setVacationDays(int vacationDays) {
 		this.vacationDays = vacationDays;
 	}
-	
-	
-	
+
 }

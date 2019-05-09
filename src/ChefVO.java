@@ -3,13 +3,14 @@ import java.awt.Color;
 public class ChefVO extends EmployeeVO {
 	/**
 	 * ChefVO represents a chef
+	 * 
 	 * @author Tim Depping
 	 */
 	private Color colorApron;
-	
-	
+
 	/**
 	 * constructor with all params
+	 * 
 	 * @param lastName
 	 * @param firstName
 	 * @param street
@@ -25,36 +26,20 @@ public class ChefVO extends EmployeeVO {
 		setColorApron(colorApron);
 	}
 
-
 	/**
 	 * default constructor
 	 */
-	ChefVO(){
+
+	ChefVO() {
 		this(null, null, null, 0, null, 0.0f, 0, null);
 	}
-	
 
+	@Override
 	public String toString() {
 		return String.format("Chef: %s %s\n", this.firstName, this.lastName);
 	}
-	
-	//Getter and setter
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	// Getter and setter
 
 	public Color getColorApron() {
 		return colorApron;
@@ -63,5 +48,5 @@ public class ChefVO extends EmployeeVO {
 	public void setColorApron(Color colorApron) {
 		this.colorApron = colorApron;
 	}
-	
+
 }
