@@ -1,45 +1,54 @@
 
 public class PersonVO {
+
+	/**
+	 * PersonVO represents a person
+	 * 
+	 * @author Tim Depping
+	 */
+
 	protected String lastName;
 	protected String firstName;
 	protected String street;
 	protected int houseNumber;
-	
+
 	/**
 	 * constructor with all params
+	 * 
 	 * @param lastName
 	 * @param firstName
 	 * @param street
 	 * @param houseNumber
 	 */
-	
+
 	public PersonVO(String lastName, String firstName, String street, int houseNumber) {
 		setLastName(lastName);
 		setFirstName(firstName);
 		setStreet(street);
 		setHouseNumber(houseNumber);
 	}
-	
+
 	/**
 	 * constructor with first and lastname
+	 * 
 	 * @param lastName
 	 * @param firstName
 	 */
-	
+
 	public PersonVO(String lastName, String firstName) {
 		this(lastName, firstName, null, 0);
 	}
-	
+
 	/**
-	 * Default constructor
+	 * default constructor
 	 */
-	
+
 	public PersonVO() {
 		this(null, null, null, 0);
 	}
-	
-	//Klassenmethoden
-	
+
+	// Klassenmethoden
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,37 +88,45 @@ public class PersonVO {
 			return false;
 		return true;
 	}
-	
+
+	@Override
 	public String toString() {
-		return String.format("Person: %s %s\n address: %s %s", this.firstName, this.lastName, this.street, this.houseNumber);
+		return String.format("Person: %s %s\n address: %s %s", this.firstName, this.lastName, this.street,
+				this.houseNumber);
 	}
 
-	//Getter and Setter
+	// getters and setters
 
 	protected String getLastName() {
 		return lastName;
 	}
+
 	protected void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	protected String getFirstName() {
 		return firstName;
 	}
+
 	protected void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	protected String getStreet() {
 		return street;
 	}
+
 	protected void setStreet(String street) {
 		this.street = street;
 	}
+
 	protected int getHouseNumber() {
 		return houseNumber;
 	}
+
 	protected void setHouseNumber(int houseNumber) {
 		this.houseNumber = houseNumber;
 	}
-	
-	
+
 }

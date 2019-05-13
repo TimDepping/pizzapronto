@@ -1,12 +1,12 @@
-public class PizzaVO extends DishVO {
+
+public class PastaVO extends DishVO {
+	private int typeOfPasta;
 
 	/**
-	 * PizzaVO represents a pizza
+	 * PastaVO represents a pasta
 	 * 
 	 * @author Tim Depping
 	 */
-
-	private int size;
 
 	/**
 	 * constructor with all params
@@ -15,35 +15,21 @@ public class PizzaVO extends DishVO {
 	 * @param name
 	 * @param ingredients
 	 * @param price
-	 * @param size
+	 * @param pastaType
 	 */
 
-	PizzaVO(int number, String name, String[] ingredients, float price, int size) {
+	PastaVO(int number, String name, String[] ingredients, float price, int pastaType) {
 		this.number = number;
 		this.name = name;
 		this.ingredients = ingredients;
 		this.price = price;
-		setSize(size);
-	}
-
-	/**
-	 * constructor without size
-	 * 
-	 * @param number
-	 * @param name
-	 * @param ingredients
-	 * @param price
-	 */
-
-	PizzaVO(int number, String name, String[] ingredients, float price) {
-		this(number, name, ingredients, price, 0);
+		this.typeOfPasta = pastaType;
 	}
 
 	/**
 	 * Default constructor
 	 */
-
-	PizzaVO() {
+	PastaVO() {
 		this(0, null, null, 0.0f, 0);
 	}
 
@@ -51,15 +37,15 @@ public class PizzaVO extends DishVO {
 
 	@Override
 	public Object clone() {
-		PizzaVO pizza = new PizzaVO(this.number, this.name, this.ingredients, this.price, this.size);
-		return pizza;
+		PastaVO pasta = new PastaVO(this.number, this.name, this.ingredients, this.price, this.typeOfPasta);
+		return pasta;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + size;
+		result = prime * result + typeOfPasta;
 		return result;
 	}
 
@@ -71,8 +57,8 @@ public class PizzaVO extends DishVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PizzaVO other = (PizzaVO) obj;
-		if (size != other.size)
+		PastaVO other = (PastaVO) obj;
+		if (typeOfPasta != other.typeOfPasta)
 			return false;
 		return true;
 	}
@@ -80,11 +66,6 @@ public class PizzaVO extends DishVO {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer(getNumberOfDish() + " " + getNameOfDish());
-		if (size == 1) {
-			sb.append("Normal  ");
-		} else {
-			sb.append("Grande  ");
-		}
 		for (var i = 0; i < ingredients.length; i++) {
 			if (ingredients[i] != null) {
 				sb.append(ingredients[i]);
@@ -99,23 +80,32 @@ public class PizzaVO extends DishVO {
 
 	@Override
 	String getNameOfDish() {
-		StringBuffer sb = new StringBuffer(String.format("Pizza " + name + " - "));
+		StringBuffer sb = new StringBuffer(String.format("Pasta " + name + " - "));
+		if (typeOfPasta == 4) {
+			sb.append("Spaghetti  ");
+		} else if (typeOfPasta == 5) {
+			sb.append("Tortellini  ");
+		} else if (typeOfPasta == 6) {
+			sb.append("Gnocchi  ");
+		} else {
+			sb.append("Unknown");
+		}
 		return sb.toString();
 	}
 
 	@Override
 	int getNumberOfDish() {
-		return number * 10 + size;
+		return typeOfPasta * 100 + number;
 	}
 
 	// getters and setters
 
-	public int getSize() {
-		return size;
+	public int getTypeOfPasta() {
+		return typeOfPasta;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
+	public void setTypeOfPasta(int typeOfPasta) {
+		this.typeOfPasta = typeOfPasta;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 public class CustomerVO extends PersonVO {
 	/**
 	 * CustomerVO represents a customer
+	 * 
 	 * @author Tim Depping
 	 */
 	private static int nextId = 0;
@@ -12,7 +13,7 @@ public class CustomerVO extends PersonVO {
 	private String gender;
 	private LocalDate dateOfBirth;
 	private OrderVO order;
-	
+
 	public CustomerVO(String lastName, String firstName, String street, int houseNumber, String gender, LocalDate dob) {
 		super(lastName, firstName, street, houseNumber);
 		id = nextId;
@@ -20,17 +21,15 @@ public class CustomerVO extends PersonVO {
 		setGender(gender);
 		setDateOfBirth(dob);
 	}
-	
+
 	public CustomerVO(String lastName, String firstName, LocalDate dob) {
 		this(lastName, firstName, null, 0, null, dob);
 	}
-	 
-	 
+
 	public CustomerVO() {
 		this(null, null, null, 0, null, null);
 	}
-	
-	
+
 	public short calculateAge() {
 		short calculatedAge = -1;
 		Period age;
@@ -42,20 +41,21 @@ public class CustomerVO extends PersonVO {
 		}
 		return calculatedAge;
 	}
-	
+
 	String dobToString() {
-		if(dateOfBirth != null) {
+		if (dateOfBirth != null) {
 			return dateOfBirth.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
 		}
 		return "Not available.";
 	}
-	
+
 	Boolean hasOrder() {
 		return order != null;
 	}
-	
-	//Verwaltungsmethoden
-	
+
+	// Verwaltungsmethoden
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -67,6 +67,7 @@ public class CustomerVO extends PersonVO {
 		return result;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -112,11 +113,13 @@ public class CustomerVO extends PersonVO {
 		return true;
 	}
 
+	@Override
 	public String toString() {
-		return String.format("Customer: %s %s\n gender: %s\n date of birth: %s, age: %s", this.firstName, this.lastName, this.gender, dobToString(), this.calculateAge());
+		return String.format("Customer: %s %s\n gender: %s\n date of birth: %s, age: %s\n\n", this.firstName,
+				this.lastName, this.gender, dobToString(), this.calculateAge());
 	}
-	
-	//Getter and setter
+
+	// getters and setters
 
 	public String getGender() {
 		return gender;
@@ -134,23 +137,22 @@ public class CustomerVO extends PersonVO {
 		this.dateOfBirth = dateOfBirth;
 		if (this.calculateAge() < 18) {
 			this.dateOfBirth = null;
-		} 
+		}
 	}
 
 	public int getId() {
 		return id;
 	}
-	
+
 	public static int getNextId() {
 		return nextId;
 	}
-	
+
 	public OrderVO getOrder() {
 		return order;
 	}
-	
+
 	public void setOrder(OrderVO order) {
 		this.order = order;
 	}
-	
 }
