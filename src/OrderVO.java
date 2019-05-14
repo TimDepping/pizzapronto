@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class OrderVO {
@@ -9,7 +8,6 @@ public class OrderVO {
 	 * @author Tim Depping
 	 */
 
-	private static int nextOrderNo = 0;
 	private int orderNo;
 	private String state;
 	private java.time.LocalDateTime timestampStartedOrder;
@@ -26,12 +24,9 @@ public class OrderVO {
 	 * @param customer
 	 */
 
-	OrderVO(java.time.LocalDateTime timestampStartedOrder, CustomerVO customer) {
-		if (nextOrderNo == 0
-				|| LocalDateTime.now().getDayOfMonth() == 1 && timestampStartedOrder.getMonthValue() == 1) {
-			nextOrderNo = LocalDateTime.now().getYear() * 100000;
-		}
-		orderNo = ++nextOrderNo;
+	OrderVO(int orderNo, String state, java.time.LocalDateTime timestampStartedOrder, CustomerVO customer) {
+		setOrderNo(orderNo);
+		setState(state);
 		setTimestampStartedOrder(timestampStartedOrder);
 		setTimestampDeliveredOrder(null);
 		setCustomer(customer);
@@ -145,8 +140,8 @@ public class OrderVO {
 		return orderNo;
 	}
 
-	public static int getNextOrderNo() {
-		return nextOrderNo;
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public java.time.LocalDateTime getTimestampStartedOrder() {
