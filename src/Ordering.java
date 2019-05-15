@@ -19,18 +19,18 @@ public class Ordering implements IOrdering {
 
 	@Override
 	public OrderVO startNewOrder(CustomerVO customer) {
-		if (menu == null) {
+		if (menu != null) {
 			if (customer != null) {
 				setCurrentCustomer(customer);
 				// Change OrderNo
-				if (nextId == 0 || (nextId / 100000) < LocalDateTime.now().getYear()) {
+				if (nextId == 0
+						|| Integer.parseInt(Integer.toString(nextId).substring(0, 4)) < LocalDateTime.now().getYear()) {
 					nextId = LocalDateTime.now().getYear() * 100000;
 				}
 				nextId++;
-
 				setCurrentOrder(new OrderVO(nextId, "started", LocalDateTime.now(), currentCustomer));
 				currentCustomer.setOrder(currentOrder);
-
+				return currentOrder;
 			}
 			return null;
 		}
@@ -77,7 +77,7 @@ public class Ordering implements IOrdering {
 	@Override
 	public void confirmOrder() {
 		if (currentOrder != null) {
-			if (currentOrder.getState() == "started") {
+			if (currentOrder.getState() == "started" && currentOrder.getNumberOfDishes() > 0) {
 				currentOrder.setState("confirmed");
 				startService();
 			} else {

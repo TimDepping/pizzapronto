@@ -1,21 +1,14 @@
 
 public interface IOrdering {
 
-	public default OrderVO startNewOrder(CustomerVO customer) {
-		return null;
-	}
+	public OrderVO startNewOrder(CustomerVO customer);
 
-	public default void addDish(DishVO dish) {
-	}
+	public void addDish(DishVO dish);
 
-	public default void deleteDish() {
-	}
+	public void deleteDish();
 
-	public default float calculateTotalPrice() {
-		return 0.0f;
-	}
+	public float calculateTotalPrice();
 
-	public default void confirmOrder() {
-	}
+	public void confirmOrder();
 
 }

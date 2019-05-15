@@ -39,7 +39,9 @@ public class OrderVO {
 	public float calculatePriceDishes() {
 		float sum = 0.0f;
 		for (int i = 0; i < shoppingBasket.length; i++) {
-			sum += shoppingBasket[i].getPrice();
+			if (shoppingBasket[i] != null) {
+				sum += shoppingBasket[i].getPrice();
+			}
 		}
 		return sum;
 	}
