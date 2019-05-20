@@ -34,6 +34,33 @@ public class ChefVO extends EmployeeVO {
 		this(null, null, null, 0, null, 0.0f, 0, null);
 	}
 
+	// Verwaltungsmethoden
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((colorApron == null) ? 0 : colorApron.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChefVO other = (ChefVO) obj;
+		if (colorApron == null) {
+			if (other.colorApron != null)
+				return false;
+		} else if (!colorApron.equals(other.colorApron))
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("Chef: %s %s", this.firstName, this.lastName);

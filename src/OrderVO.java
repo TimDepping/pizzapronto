@@ -1,4 +1,5 @@
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class OrderVO {
 
@@ -100,7 +101,13 @@ public class OrderVO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + index;
 		result = prime * result + orderNo;
+		result = prime * result + Arrays.hashCode(shoppingBasket);
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((timestampDeliveredOrder == null) ? 0 : timestampDeliveredOrder.hashCode());
+		result = prime * result + ((timestampStartedOrder == null) ? 0 : timestampStartedOrder.hashCode());
 		return result;
 	}
 
@@ -113,7 +120,31 @@ public class OrderVO {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderVO other = (OrderVO) obj;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
+			return false;
+		if (index != other.index)
+			return false;
 		if (orderNo != other.orderNo)
+			return false;
+		if (!Arrays.equals(shoppingBasket, other.shoppingBasket))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (timestampDeliveredOrder == null) {
+			if (other.timestampDeliveredOrder != null)
+				return false;
+		} else if (!timestampDeliveredOrder.equals(other.timestampDeliveredOrder))
+			return false;
+		if (timestampStartedOrder == null) {
+			if (other.timestampStartedOrder != null)
+				return false;
+		} else if (!timestampStartedOrder.equals(other.timestampStartedOrder))
 			return false;
 		return true;
 	}

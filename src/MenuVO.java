@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 public class MenuVO {
 
@@ -45,6 +46,30 @@ public class MenuVO {
 
 	int getNumberOfDishes() {
 		return NUMBER_OF_DISHES;
+	}
+
+	// Verwaltungsmethoden
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(dishes);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MenuVO other = (MenuVO) obj;
+		if (!Arrays.equals(dishes, other.dishes))
+			return false;
+		return true;
 	}
 
 	@Override

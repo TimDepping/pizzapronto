@@ -110,6 +110,51 @@ public class Ordering implements IOrdering {
 		}
 	}
 
+	// Verwaltungsmethoden
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((currentCustomer == null) ? 0 : currentCustomer.hashCode());
+		result = prime * result + ((currentOrder == null) ? 0 : currentOrder.hashCode());
+		result = prime * result + ((delivery == null) ? 0 : delivery.hashCode());
+		result = prime * result + ((kitchen == null) ? 0 : kitchen.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ordering other = (Ordering) obj;
+		if (currentCustomer == null) {
+			if (other.currentCustomer != null)
+				return false;
+		} else if (!currentCustomer.equals(other.currentCustomer))
+			return false;
+		if (currentOrder == null) {
+			if (other.currentOrder != null)
+				return false;
+		} else if (!currentOrder.equals(other.currentOrder))
+			return false;
+		if (delivery == null) {
+			if (other.delivery != null)
+				return false;
+		} else if (!delivery.equals(other.delivery))
+			return false;
+		if (kitchen == null) {
+			if (other.kitchen != null)
+				return false;
+		} else if (!kitchen.equals(other.kitchen))
+			return false;
+		return true;
+	}
+
 	// setters and getters
 
 	public MenuVO getMenu() {

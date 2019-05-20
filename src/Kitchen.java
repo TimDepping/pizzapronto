@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Kitchen implements IService {
 	private EmployeeVO[] employees;
@@ -19,6 +20,32 @@ public class Kitchen implements IService {
 		}
 		return String.format(" Service of ChefVO %s: No order available. ", employees[0].toString());
 	}
+
+	// Verwaltungsmethoden
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(employees);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Kitchen other = (Kitchen) obj;
+		if (!Arrays.equals(employees, other.employees))
+			return false;
+		return true;
+	}
+
+	// Getter and setters
 
 	public EmployeeVO[] getEmployees() {
 		return employees;
