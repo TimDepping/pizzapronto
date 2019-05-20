@@ -31,7 +31,7 @@ public abstract class EmployeeVO extends PersonVO {
 		setVacationDays(vacationDays);
 	}
 
-	// Klassenmethoden
+	// Verwaltungsmethoden
 
 	@Override
 	public int hashCode() {
@@ -55,7 +55,12 @@ public abstract class EmployeeVO extends PersonVO {
 		if (personnelNo == null) {
 			if (other.personnelNo != null)
 				return false;
-		}
+		} else if (!personnelNo.equals(other.personnelNo))
+			return false;
+		if (Float.floatToIntBits(salary) != Float.floatToIntBits(other.salary))
+			return false;
+		if (vacationDays != other.vacationDays)
+			return false;
 		return true;
 	}
 

@@ -1,4 +1,3 @@
-
 public class DeliveryManVO extends EmployeeVO {
 
 	/**
@@ -34,6 +33,33 @@ public class DeliveryManVO extends EmployeeVO {
 
 	public DeliveryManVO() {
 		super(null, null, null, 0, null, 0.0f, 0);
+	}
+
+	// Verwaltungsmethoden
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((driverLicence == null) ? 0 : driverLicence.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DeliveryManVO other = (DeliveryManVO) obj;
+		if (driverLicence == null) {
+			if (other.driverLicence != null)
+				return false;
+		} else if (!driverLicence.equals(other.driverLicence))
+			return false;
+		return true;
 	}
 
 	@Override

@@ -1,5 +1,5 @@
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class OrderVO {
 
@@ -9,7 +9,6 @@ public class OrderVO {
 	 * @author Tim Depping
 	 */
 
-	private static int nextOrderNo = 0;
 	private int orderNo;
 	private String state;
 	private java.time.LocalDateTime timestampStartedOrder;
@@ -26,12 +25,9 @@ public class OrderVO {
 	 * @param customer
 	 */
 
-	OrderVO(java.time.LocalDateTime timestampStartedOrder, CustomerVO customer) {
-		if (nextOrderNo == 0
-				|| LocalDateTime.now().getDayOfMonth() == 1 && timestampStartedOrder.getMonthValue() == 1) {
-			nextOrderNo = LocalDateTime.now().getYear() * 100000;
-		}
-		orderNo = ++nextOrderNo;
+	OrderVO(int orderNo, String state, java.time.LocalDateTime timestampStartedOrder, CustomerVO customer) {
+		setOrderNo(orderNo);
+		setState(state);
 		setTimestampStartedOrder(timestampStartedOrder);
 		setTimestampDeliveredOrder(null);
 		setCustomer(customer);
@@ -44,7 +40,9 @@ public class OrderVO {
 	public float calculatePriceDishes() {
 		float sum = 0.0f;
 		for (int i = 0; i < shoppingBasket.length; i++) {
-			sum += shoppingBasket[i].getPrice();
+			if (shoppingBasket[i] != null) {
+				sum += shoppingBasket[i].getPrice();
+			}
 		}
 		return sum;
 	}
@@ -103,7 +101,13 @@ public class OrderVO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + index;
 		result = prime * result + orderNo;
+		result = prime * result + Arrays.hashCode(shoppingBasket);
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((timestampDeliveredOrder == null) ? 0 : timestampDeliveredOrder.hashCode());
+		result = prime * result + ((timestampStartedOrder == null) ? 0 : timestampStartedOrder.hashCode());
 		return result;
 	}
 
@@ -116,7 +120,31 @@ public class OrderVO {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderVO other = (OrderVO) obj;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
+			return false;
+		if (index != other.index)
+			return false;
 		if (orderNo != other.orderNo)
+			return false;
+		if (!Arrays.equals(shoppingBasket, other.shoppingBasket))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (timestampDeliveredOrder == null) {
+			if (other.timestampDeliveredOrder != null)
+				return false;
+		} else if (!timestampDeliveredOrder.equals(other.timestampDeliveredOrder))
+			return false;
+		if (timestampStartedOrder == null) {
+			if (other.timestampStartedOrder != null)
+				return false;
+		} else if (!timestampStartedOrder.equals(other.timestampStartedOrder))
 			return false;
 		return true;
 	}
@@ -145,8 +173,8 @@ public class OrderVO {
 		return orderNo;
 	}
 
-	public static int getNextOrderNo() {
-		return nextOrderNo;
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public java.time.LocalDateTime getTimestampStartedOrder() {

@@ -47,7 +47,7 @@ public class PersonVO {
 		this(null, null, null, 0);
 	}
 
-	// Klassenmethoden
+	// Verwaltungsmethoden
 
 	@Override
 	public int hashCode() {

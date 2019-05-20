@@ -49,6 +49,8 @@ public abstract class DishVO {
 		this(0, null, null, 0.0f);
 	}
 
+	// Verwaltungsmethoden
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -29,10 +29,28 @@ public class DessertVO extends DishVO {
 		this(0, null, 0.0f);
 	}
 
+	// Verwaltungsmethoden
+
 	@Override
 	public Object clone() {
 		DessertVO dessert = new DessertVO(this.number, this.name, this.price);
 		return dessert;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		return true;
 	}
 
 	@Override
