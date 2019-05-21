@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Arrays;
 
 public class Kitchen implements IService {
@@ -5,7 +6,8 @@ public class Kitchen implements IService {
 
 	public Kitchen() {
 		setEmployees(new EmployeeVO[1]);
-		employees[0] = new ChefVO();
+		employees[0] = new ChefVO("Mozarella", "Giovanni", "A la Playa", 50, "personnelNumber", 1000.0f, 364,
+				Color.blue);
 	}
 
 	@Override
@@ -15,8 +17,7 @@ public class Kitchen implements IService {
 				order.setState("ready");
 				return String.format(" Service of ChefVO %s: Order is ready. ", employees[0].toString());
 			}
-			return String.format(" Service of ChefVO %s: No order for precessing available. ", employees[0].toString());
-
+			return String.format(" Service of ChefVO %s: No order for processing available. ", employees[0].toString());
 		}
 		return String.format(" Service of ChefVO %s: No order available. ", employees[0].toString());
 	}

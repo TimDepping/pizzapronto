@@ -77,7 +77,7 @@ public class Ordering implements IOrdering {
 	@Override
 	public void confirmOrder() {
 		if (currentOrder != null) {
-			if (currentOrder.getState() == "started" && currentOrder.getNumberOfDishes() > 0) {
+			if (currentOrder.getState() == "started") {
 				currentOrder.setState("confirmed");
 				startService();
 			} else {
@@ -157,11 +157,11 @@ public class Ordering implements IOrdering {
 
 	// setters and getters
 
-	public MenuVO getMenu() {
+	public static MenuVO getMenu() {
 		return menu;
 	}
 
-	public int getNextId() {
+	public static int getNextId() {
 		return nextId;
 	}
 

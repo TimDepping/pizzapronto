@@ -26,6 +26,10 @@ public class ChefVO extends EmployeeVO {
 		setColorApron(colorApron);
 	}
 
+	public ChefVO(String personnelNo, String lastName, String firstName) {
+		this(lastName, firstName, null, 0, personnelNo, 0.0f, 0, null);
+	}
+
 	/**
 	 * default constructor
 	 */
@@ -48,22 +52,17 @@ public class ChefVO extends EmployeeVO {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		ChefVO other = (ChefVO) obj;
-		if (colorApron == null) {
-			if (other.colorApron != null)
-				return false;
-		} else if (!colorApron.equals(other.colorApron))
+		if (personnelNo != other.getPersonnelNo())
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Chef: %s %s", this.firstName, this.lastName);
+		return String.format("Chef: %s %s, personnelNo: %s", this.firstName, this.lastName, this.personnelNo);
 	}
 
 	// getters and setters

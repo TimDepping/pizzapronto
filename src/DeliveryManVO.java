@@ -35,6 +35,10 @@ public class DeliveryManVO extends EmployeeVO {
 		super(null, null, null, 0, null, 0.0f, 0);
 	}
 
+	public DeliveryManVO(String personnelNo, String lastName, String firstName) {
+		this(lastName, firstName, null, 0, personnelNo, 0.0f, 0, null);
+	}
+
 	// Verwaltungsmethoden
 
 	@Override
@@ -64,8 +68,8 @@ public class DeliveryManVO extends EmployeeVO {
 
 	@Override
 	public String toString() {
-		return String.format("DeliveryMan: %s %s\n driver licence: %s\n", this.firstName, this.lastName,
-				this.driverLicence);
+		return String.format("DeliveryMan: %s %s, personnelNo: %s \n driver licence: %s\n", this.firstName,
+				this.lastName, this.personnelNo, this.driverLicence);
 	}
 
 	public String getDriverLicence() {

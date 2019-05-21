@@ -10,8 +10,10 @@ public class Delivery implements IService {
 	 */
 	public Delivery() {
 		setEmployees(new EmployeeVO[2]);
-		employees[0] = new DeliveryManVO();
-		employees[1] = new DeliveryManVO();
+		employees[0] = new DeliveryManVO("Tias", "Ralley", "Waldweg", 2, "2", 10.0f, 30, "LitDriverThe1st");
+		;
+		employees[1] = new DeliveryManVO("Tias", "Ralley", "Waldweg", 2, "2", 10.0f, 30, "LitDriverThe1st");
+		;
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class Delivery implements IService {
 							" Drive to customer %s, Service of DeliveryManVO %s: Order is delivered on //Implement Date ",
 							customer.toString(), employee.toString());
 				} else {
-					return String.format(" Service of DeliveryManVO %s: No order for processing available. ",
+					return String.format(" Service of DeliveryManVO %s: No order is ready for processing. ",
 							employee.toString());
 				}
 			} else {

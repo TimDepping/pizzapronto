@@ -108,9 +108,9 @@ public abstract class DishVO {
 		return text.toString();
 	}
 
-	abstract String getNameOfDish();
+	public abstract String getNameOfDish();
 
-	abstract int getNumberOfDish();
+	public abstract int getNumberOfDish();
 
 	// getters and setters
 

@@ -80,11 +80,6 @@ public class PizzaVO extends DishVO {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer(getNumberOfDish() + " " + getNameOfDish());
-		if (size == 1) {
-			sb.append("Normal  ");
-		} else {
-			sb.append("Grande  ");
-		}
 		for (var i = 0; i < ingredients.length; i++) {
 			if (ingredients[i] != null) {
 				sb.append(ingredients[i]);
@@ -98,13 +93,18 @@ public class PizzaVO extends DishVO {
 	}
 
 	@Override
-	String getNameOfDish() {
+	public String getNameOfDish() {
 		StringBuffer sb = new StringBuffer(String.format("Pizza " + name + " - "));
+		if (size == 1) {
+			sb.append("Normal  ");
+		} else {
+			sb.append("Grande  ");
+		}
 		return sb.toString();
 	}
 
 	@Override
-	int getNumberOfDish() {
+	public int getNumberOfDish() {
 		return number * 10 + size;
 	}
 

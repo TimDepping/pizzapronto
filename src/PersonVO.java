@@ -1,5 +1,5 @@
 
-public class PersonVO {
+public abstract class PersonVO {
 
 	/**
 	 * PersonVO represents a person

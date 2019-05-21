@@ -88,6 +88,9 @@ public class OrderVO {
 	// get dish at index from shopping basket
 
 	public DishVO getDish(int index) {
+		if (index > MAX_DISHES) {
+			return null;
+		}
 		if (shoppingBasket[index] != null) {
 			return shoppingBasket[index];
 		} else {
@@ -201,7 +204,7 @@ public class OrderVO {
 		this.customer = customer;
 	}
 
-	public int getMAX_DISHES() {
+	public static int getMAX_DISHES() {
 		return MAX_DISHES;
 	}
 
