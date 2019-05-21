@@ -6,10 +6,10 @@ public class MenuVO {
 	/**
 	 * MenuVO represents a menu
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
-	private static int NUMBER_OF_DISHES = 18;
+	private static final int NUMBER_OF_DISHES = 18;
 	private DishVO[] dishes;
 
 	MenuVO() {
@@ -44,7 +44,7 @@ public class MenuVO {
 		return dishes[index];
 	}
 
-	int getNumberOfDishes() {
+	static int getNumberOfDishes() {
 		return NUMBER_OF_DISHES;
 	}
 
@@ -133,9 +133,5 @@ public class MenuVO {
 
 	public static int getNUMBER_OF_DISHES() {
 		return NUMBER_OF_DISHES;
-	}
-
-	public static void setNUMBER_OF_DISHES(int nUMBER_OF_DISHES) {
-		NUMBER_OF_DISHES = nUMBER_OF_DISHES;
 	}
 }

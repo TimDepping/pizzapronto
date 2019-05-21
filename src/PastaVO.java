@@ -5,7 +5,7 @@ public class PastaVO extends DishVO {
 	/**
 	 * PastaVO represents a pasta
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	/**
@@ -79,7 +79,7 @@ public class PastaVO extends DishVO {
 	}
 
 	@Override
-	String getNameOfDish() {
+	public String getNameOfDish() {
 		StringBuffer sb = new StringBuffer(String.format("Pasta " + name + " - "));
 		if (typeOfPasta == 4) {
 			sb.append("Spaghetti  ");
@@ -94,7 +94,7 @@ public class PastaVO extends DishVO {
 	}
 
 	@Override
-	int getNumberOfDish() {
+	public int getNumberOfDish() {
 		return typeOfPasta * 100 + number;
 	}
 

@@ -4,7 +4,7 @@ public class DessertVO extends DishVO {
 	/**
 	 * DessertVO represents a dessert
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	/**
@@ -61,12 +61,12 @@ public class DessertVO extends DishVO {
 	}
 
 	@Override
-	String getNameOfDish() {
+	public String getNameOfDish() {
 		return String.format("Dessert %s", this.name);
 	}
 
 	@Override
-	int getNumberOfDish() {
+	public int getNumberOfDish() {
 		return number;
 	}
 }

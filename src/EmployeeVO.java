@@ -4,7 +4,7 @@ public abstract class EmployeeVO extends PersonVO {
 	/**
 	 * Employee represents a employee
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	protected String personnelNo;

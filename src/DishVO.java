@@ -5,7 +5,7 @@ public abstract class DishVO {
 	/**
 	 * DishVO represents a dish
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	protected int number;
@@ -108,9 +108,9 @@ public abstract class DishVO {
 		return text.toString();
 	}
 
-	abstract String getNameOfDish();
+	public abstract String getNameOfDish();
 
-	abstract int getNumberOfDish();
+	public abstract int getNumberOfDish();
 
 	// getters and setters
 
