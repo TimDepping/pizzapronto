@@ -4,7 +4,7 @@ public abstract class PersonVO {
 	/**
 	 * PersonVO represents a person
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	protected String lastName;

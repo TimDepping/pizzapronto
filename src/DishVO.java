@@ -5,7 +5,7 @@ public abstract class DishVO {
 	/**
 	 * DishVO represents a dish
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	protected int number;

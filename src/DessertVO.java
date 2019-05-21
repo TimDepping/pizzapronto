@@ -4,7 +4,7 @@ public class DessertVO extends DishVO {
 	/**
 	 * DessertVO represents a dessert
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	/**

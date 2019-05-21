@@ -7,7 +7,7 @@ public class TestDriver {
 	/**
 	 * TestDriver contains the main method to test the functionality of the project
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 * @param args
 	 */
 

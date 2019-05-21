@@ -6,7 +6,7 @@ public class CustomerVO extends PersonVO {
 	/**
 	 * CustomerVO represents a customer
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 	private static int nextId = 0;
 	private int id;

@@ -3,7 +3,7 @@ public class PizzaVO extends DishVO {
 	/**
 	 * PizzaVO represents a pizza
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	private int size;

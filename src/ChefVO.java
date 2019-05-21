@@ -4,7 +4,7 @@ public class ChefVO extends EmployeeVO {
 	/**
 	 * ChefVO represents a chef
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 	private Color colorApron;
 

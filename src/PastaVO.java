@@ -5,7 +5,7 @@ public class PastaVO extends DishVO {
 	/**
 	 * PastaVO represents a pasta
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	/**

@@ -6,7 +6,7 @@ public class MenuVO {
 	/**
 	 * MenuVO represents a menu
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	private static final int NUMBER_OF_DISHES = 18;

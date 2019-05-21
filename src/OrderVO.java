@@ -6,7 +6,7 @@ public class OrderVO {
 	/**
 	 * OrderVO represents an order
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	private int orderNo;

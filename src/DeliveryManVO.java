@@ -3,7 +3,7 @@ public class DeliveryManVO extends EmployeeVO {
 	/**
 	 * DeliveryManVO represents a delivery man
 	 * 
-	 * @author Tim Depping
+	 * @author
 	 */
 
 	private String driverLicence;
