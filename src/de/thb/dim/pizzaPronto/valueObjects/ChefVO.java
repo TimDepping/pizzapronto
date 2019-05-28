@@ -1,3 +1,4 @@
+package de.thb.dim.pizzaPronto.valueObjects;
 import java.awt.Color;
 
 public class ChefVO extends EmployeeVO {

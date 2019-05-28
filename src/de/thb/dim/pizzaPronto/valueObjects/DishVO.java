@@ -1,6 +1,7 @@
+package de.thb.dim.pizzaPronto.valueObjects;
 import java.util.Arrays;
 
-public abstract class DishVO {
+public abstract class DishVO implements Comparable<DishVO>{
 
 	/**
 	 * DishVO represents a dish
@@ -47,6 +48,11 @@ public abstract class DishVO {
 
 	DishVO() {
 		this(0, null, null, 0.0f);
+	}
+	
+	@Override
+	public int compareTo(DishVO other) {
+	    return this.getNameOfDish().toLowerCase().compareTo(other.getNameOfDish().toLowerCase());
 	}
 
 	// Verwaltungsmethoden

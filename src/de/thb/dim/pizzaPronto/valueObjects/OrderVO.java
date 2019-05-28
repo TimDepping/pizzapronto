@@ -1,5 +1,8 @@
+package de.thb.dim.pizzaPronto.valueObjects;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class OrderVO {
 
@@ -10,13 +13,11 @@ public class OrderVO {
 	 */
 
 	private int orderNo;
-	private String state;
+	private StateOfOrderVO state;
 	private java.time.LocalDateTime timestampStartedOrder;
 	private java.time.LocalDateTime timestampDeliveredOrder;
-	private static final int MAX_DISHES = 10;
-	private DishVO[] shoppingBasket;
+	private List<DishVO> shoppingBasket;
 	private CustomerVO customer;
-	private int index;
 
 	/**
 	 * constructor
@@ -25,23 +26,22 @@ public class OrderVO {
 	 * @param customer
 	 */
 
-	OrderVO(int orderNo, String state, java.time.LocalDateTime timestampStartedOrder, CustomerVO customer) {
+	public OrderVO(int orderNo, StateOfOrderVO state, java.time.LocalDateTime timestampStartedOrder, CustomerVO customer) {
 		setOrderNo(orderNo);
 		setState(state);
 		setTimestampStartedOrder(timestampStartedOrder);
 		setTimestampDeliveredOrder(null);
 		setCustomer(customer);
-		this.shoppingBasket = new DishVO[MAX_DISHES];
-		index = 0;
-		setState("started");
+		this.shoppingBasket = new LinkedList<DishVO>();
+		setState(StateOfOrderVO.STARTED);
 
 	}
 
 	public float calculatePriceDishes() {
 		float sum = 0.0f;
-		for (int i = 0; i < shoppingBasket.length; i++) {
-			if (shoppingBasket[i] != null) {
-				sum += shoppingBasket[i].getPrice();
+		for (int i = 0; i < shoppingBasket.size(); i++) {
+			if (shoppingBasket.get(i) != null) {
+				sum += shoppingBasket.get(i).getPrice();
 			}
 		}
 		return sum;
@@ -68,34 +68,19 @@ public class OrderVO {
 	// add dish to shopping basket
 
 	public void addDish(DishVO dish) {
-		if (index < MAX_DISHES) {
-			shoppingBasket[index] = dish;
-			index++;
-		}
+		shoppingBasket.add(dish);
 	}
 
 	// deletes last dish from shopping basket
 
-	public void deleteDish() {
-		if (index > 0) {
-			shoppingBasket[index - 1] = null;
-			this.index--;
-		} else if (index == 0) {
-			shoppingBasket[0] = null;
-		}
+	public void deleteDish(DishVO dish) {
+		shoppingBasket.remove(dish);
 	}
 
 	// get dish at index from shopping basket
 
 	public DishVO getDish(int index) {
-		if (index > MAX_DISHES) {
-			return null;
-		}
-		if (shoppingBasket[index] != null) {
-			return shoppingBasket[index];
-		} else {
-			return null;
-		}
+		return shoppingBasket.get(index);
 	}
 
 	// Verwaltungsmethoden
@@ -105,9 +90,8 @@ public class OrderVO {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-		result = prime * result + index;
 		result = prime * result + orderNo;
-		result = prime * result + Arrays.hashCode(shoppingBasket);
+		result = prime * result + ((shoppingBasket == null) ? 0 : shoppingBasket.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((timestampDeliveredOrder == null) ? 0 : timestampDeliveredOrder.hashCode());
 		result = prime * result + ((timestampStartedOrder == null) ? 0 : timestampStartedOrder.hashCode());
@@ -128,16 +112,14 @@ public class OrderVO {
 				return false;
 		} else if (!customer.equals(other.customer))
 			return false;
-		if (index != other.index)
-			return false;
 		if (orderNo != other.orderNo)
 			return false;
-		if (!Arrays.equals(shoppingBasket, other.shoppingBasket))
-			return false;
-		if (state == null) {
-			if (other.state != null)
+		if (shoppingBasket == null) {
+			if (other.shoppingBasket != null)
 				return false;
-		} else if (!state.equals(other.state))
+		} else if (!shoppingBasket.equals(other.shoppingBasket))
+			return false;
+		if (state != other.state)
 			return false;
 		if (timestampDeliveredOrder == null) {
 			if (other.timestampDeliveredOrder != null)
@@ -154,13 +136,13 @@ public class OrderVO {
 
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer(
+		StringBuilder sb = new StringBuilder(
 				String.format("OrderVO %s from %s with delivery at %s\n of customer: %s %s, ID of customer: %s",
 						this.orderNo, startedDateToString(), deliveredDateToString(), this.customer.firstName,
 						this.customer.lastName, this.customer.getId()));
 		if (shoppingBasket != null) {
-			for (var i = 0; i < shoppingBasket.length; i++) {
-				DishVO item = shoppingBasket[i];
+			for (var i = 0; i < shoppingBasket.size(); i++) {
+				DishVO item = shoppingBasket.get(i);
 				if (item != null) {
 					sb.append("\n" + item.toString());
 				}
@@ -204,31 +186,23 @@ public class OrderVO {
 		this.customer = customer;
 	}
 
-	public static int getMAX_DISHES() {
-		return MAX_DISHES;
-	}
-
 	public int getNumberOfDishes() {
-		return index;
+		return shoppingBasket.size();
 	}
 
-	public void setShoppingBasket(DishVO[] shoppingBasket) {
+	public void setShoppingBasket(LinkedList<DishVO> shoppingBasket) {
 		this.shoppingBasket = shoppingBasket;
 	}
 
-	public DishVO[] getShoppingBasket() {
+	public List<DishVO> getShoppingBasket() {
 		return shoppingBasket;
 	}
 
-	public int getIndex() {
-		return index;
-	}
-
-	public String getState() {
+	public StateOfOrderVO getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(StateOfOrderVO state) {
 		this.state = state;
 	}
 

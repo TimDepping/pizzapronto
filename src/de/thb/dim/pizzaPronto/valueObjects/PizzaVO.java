@@ -1,12 +1,13 @@
-
-public class PastaVO extends DishVO {
-	private int typeOfPasta;
+package de.thb.dim.pizzaPronto.valueObjects;
+public class PizzaVO extends DishVO {
 
 	/**
-	 * PastaVO represents a pasta
+	 * PizzaVO represents a pizza
 	 * 
 	 * @author
 	 */
+
+	private int size;
 
 	/**
 	 * constructor with all params
@@ -15,21 +16,35 @@ public class PastaVO extends DishVO {
 	 * @param name
 	 * @param ingredients
 	 * @param price
-	 * @param pastaType
+	 * @param size
 	 */
 
-	PastaVO(int number, String name, String[] ingredients, float price, int pastaType) {
+	PizzaVO(int number, String name, String[] ingredients, float price, int size) {
 		this.number = number;
 		this.name = name;
 		this.ingredients = ingredients;
 		this.price = price;
-		this.typeOfPasta = pastaType;
+		setSize(size);
+	}
+
+	/**
+	 * constructor without size
+	 * 
+	 * @param number
+	 * @param name
+	 * @param ingredients
+	 * @param price
+	 */
+
+	PizzaVO(int number, String name, String[] ingredients, float price) {
+		this(number, name, ingredients, price, 0);
 	}
 
 	/**
 	 * Default constructor
 	 */
-	PastaVO() {
+
+	PizzaVO() {
 		this(0, null, null, 0.0f, 0);
 	}
 
@@ -37,15 +52,15 @@ public class PastaVO extends DishVO {
 
 	@Override
 	public Object clone() {
-		PastaVO pasta = new PastaVO(this.number, this.name, this.ingredients, this.price, this.typeOfPasta);
-		return pasta;
+		PizzaVO pizza = new PizzaVO(this.number, this.name, this.ingredients, this.price, this.size);
+		return pizza;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + typeOfPasta;
+		result = prime * result + size;
 		return result;
 	}
 
@@ -57,8 +72,8 @@ public class PastaVO extends DishVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PastaVO other = (PastaVO) obj;
-		if (typeOfPasta != other.typeOfPasta)
+		PizzaVO other = (PizzaVO) obj;
+		if (size != other.size)
 			return false;
 		return true;
 	}
@@ -80,32 +95,28 @@ public class PastaVO extends DishVO {
 
 	@Override
 	public String getNameOfDish() {
-		StringBuffer sb = new StringBuffer(String.format("Pasta " + name + " - "));
-		if (typeOfPasta == 4) {
-			sb.append("Spaghetti  ");
-		} else if (typeOfPasta == 5) {
-			sb.append("Tortellini  ");
-		} else if (typeOfPasta == 6) {
-			sb.append("Gnocchi  ");
+		StringBuffer sb = new StringBuffer(String.format("Pizza " + name + " - "));
+		if (size == 1) {
+			sb.append("Normal  ");
 		} else {
-			sb.append("Unknown");
+			sb.append("Grande  ");
 		}
 		return sb.toString();
 	}
 
 	@Override
 	public int getNumberOfDish() {
-		return typeOfPasta * 100 + number;
+		return number * 10 + size;
 	}
 
 	// getters and setters
 
-	public int getTypeOfPasta() {
-		return typeOfPasta;
+	public int getSize() {
+		return size;
 	}
 
-	public void setTypeOfPasta(int typeOfPasta) {
-		this.typeOfPasta = typeOfPasta;
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 }

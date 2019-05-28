@@ -1,5 +1,11 @@
+package de.thb.dim.pizzaPronto.businessObjects;
 import java.awt.Color;
 import java.util.Arrays;
+
+import de.thb.dim.pizzaPronto.valueObjects.ChefVO;
+import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
+import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
+import de.thb.dim.pizzaPronto.valueObjects.StateOfOrderVO;
 
 public class Kitchen implements IService {
 	private EmployeeVO[] employees;
@@ -13,8 +19,8 @@ public class Kitchen implements IService {
 	@Override
 	public String startService(OrderVO order) {
 		if (order != null) {
-			if (order.getState() == "confirmed") {
-				order.setState("ready");
+			if (order.getState() == StateOfOrderVO.CONFIRMED) {
+				order.setState(StateOfOrderVO.READY);
 				return String.format(" Service of ChefVO %s: Order is ready. ", employees[0].toString());
 			}
 			return String.format(" Service of ChefVO %s: No order for processing available. ", employees[0].toString());

@@ -1,5 +1,12 @@
+package de.thb.dim.pizzaPronto.businessObjects;
 import java.util.Arrays;
 import java.util.Random;
+
+import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
+import de.thb.dim.pizzaPronto.valueObjects.DeliveryManVO;
+import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
+import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
+import de.thb.dim.pizzaPronto.valueObjects.StateOfOrderVO;
 
 public class Delivery implements IService {
 
@@ -11,9 +18,7 @@ public class Delivery implements IService {
 	public Delivery() {
 		setEmployees(new EmployeeVO[2]);
 		employees[0] = new DeliveryManVO("Tias", "Ralley", "Waldweg", 2, "2", 10.0f, 30, "LitDriverThe1st");
-		;
 		employees[1] = new DeliveryManVO("Tias", "Ralley", "Waldweg", 2, "2", 10.0f, 30, "LitDriverThe1st");
-		;
 	}
 
 	@Override
@@ -23,8 +28,8 @@ public class Delivery implements IService {
 		if (order != null) {
 			CustomerVO customer = order.getCustomer();
 			if (customer != null) {
-				if (order.getState() == "ready") {
-					order.setState("delivered");
+				if (order.getState() == StateOfOrderVO.READY) {
+					order.setState(StateOfOrderVO.DELIVERED);
 					return String.format(
 							" Drive to customer %s, Service of DeliveryManVO %s: Order is delivered on //Implement Date ",
 							customer.toString(), employee.toString());
