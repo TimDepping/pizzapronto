@@ -1,4 +1,15 @@
+package de.thb.dim.pizzaPronto.businessObjects;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import de.thb.dim.pizzaPronto.controller.IOrdering;
+import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
+import de.thb.dim.pizzaPronto.valueObjects.DishVO;
+import de.thb.dim.pizzaPronto.valueObjects.MenuVO;
+import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
+import de.thb.dim.pizzaPronto.valueObjects.StateOfOrderVO;
 
 public class Ordering implements IOrdering {
 	private static MenuVO menu;
@@ -28,7 +39,7 @@ public class Ordering implements IOrdering {
 					nextId = LocalDateTime.now().getYear() * 100000;
 				}
 				nextId++;
-				setCurrentOrder(new OrderVO(nextId, "started", LocalDateTime.now(), currentCustomer));
+				setCurrentOrder(new OrderVO(nextId, StateOfOrderVO.STARTED, LocalDateTime.now(), currentCustomer));
 				currentCustomer.setOrder(currentOrder);
 				return currentOrder;
 			}
@@ -41,7 +52,7 @@ public class Ordering implements IOrdering {
 	@Override
 	public void addDish(DishVO dish) {
 		if (currentOrder != null) {
-			if (currentOrder.getState() == "started") {
+			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
 				currentOrder.addDish(dish);
 			} else {
 				System.out.println(" Your order is complete, you can not add any dishes. ");
@@ -53,10 +64,10 @@ public class Ordering implements IOrdering {
 	}
 
 	@Override
-	public void deleteDish() {
+	public void deleteDish(DishVO dish) {
 		if (currentOrder != null) {
-			if (currentOrder.getState() == "started") {
-				currentOrder.deleteDish();
+			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
+				currentOrder.deleteDish(dish);
 			} else {
 				System.out.println(" Your order is complete, you can not delete any dishes. ");
 			}
@@ -77,8 +88,8 @@ public class Ordering implements IOrdering {
 	@Override
 	public void confirmOrder() {
 		if (currentOrder != null) {
-			if (currentOrder.getState() == "started") {
-				currentOrder.setState("confirmed");
+			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
+				currentOrder.setState(StateOfOrderVO.CONFIRMED);
 				startService();
 			} else {
 				System.out.println(" Your order can not be confirmed ");
@@ -90,24 +101,56 @@ public class Ordering implements IOrdering {
 
 	public void startService() {
 		if (currentOrder != null) {
-			if (currentOrder.getState() == "started") {
+			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
 				System.out.print(" Your order can not be processed. ");
 			}
-			if (currentOrder.getState() == "confirmed") {
+			if (currentOrder.getState() == StateOfOrderVO.CONFIRMED) {
 				System.out.println(kitchen.startService(currentOrder));
 			}
-			if (currentOrder.getState() == "ready") {
+			if (currentOrder.getState() == StateOfOrderVO.READY) {
 				System.out.println(delivery.startService(currentOrder));
 			}
-			if (currentOrder.getState() == "delivered") {
+			if (currentOrder.getState() == StateOfOrderVO.DELIVERED) {
 				currentOrder.setTimestampDeliveredOrder(LocalDateTime.now());
-				currentOrder.setState("finished");
+				currentOrder.setState(StateOfOrderVO.FINISHED);
 				System.out.println("Order completed: " + currentOrder.toString());
 				currentCustomer.setOrder(null);
 			}
 		} else {
 			System.out.println(" Error: There is no order. ");
 		}
+	}
+	
+	@Override
+	public List<DishVO> sortShoppingBasket() {
+		Collections.sort(currentOrder.getShoppingBasket(), new Comparator<DishVO>() {
+
+			@Override
+			public int compare(DishVO o1, DishVO o2) {
+				return o1.compareTo(o2);
+				}
+			
+		});
+		return currentOrder.getShoppingBasket();
+	}
+
+	@Override
+	public List<DishVO> sortShoppingBasketByNumber() {
+		Collections.sort(currentOrder.getShoppingBasket(), new Comparator<DishVO>() {
+
+			@Override
+			public int compare(DishVO o1, DishVO o2) {
+				return Integer.compare(o1.getNumberOfDish(), o2.getNumberOfDish());
+			}
+			
+		});
+		return currentOrder.getShoppingBasket();
+	}
+
+	@Override
+	public List<DishVO> sortShoppingBasketByPrice() {
+		currentOrder.getShoppingBasket().sort((DishVO o1, DishVO o2) -> Float.compare(o1.getPrice(), o2.getPrice()));
+		return currentOrder.getShoppingBasket();
 	}
 
 	// Verwaltungsmethoden
@@ -196,5 +239,4 @@ public class Ordering implements IOrdering {
 	public void setDelivery(IService delivery) {
 		this.delivery = delivery;
 	}
-
 }

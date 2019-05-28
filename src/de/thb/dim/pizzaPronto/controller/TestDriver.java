@@ -1,6 +1,15 @@
+package de.thb.dim.pizzaPronto.controller;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.util.Random;
+
+import de.thb.dim.pizzaPronto.businessObjects.Ordering;
+import de.thb.dim.pizzaPronto.valueObjects.ChefVO;
+import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
+import de.thb.dim.pizzaPronto.valueObjects.DeliveryManVO;
+import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
+import de.thb.dim.pizzaPronto.valueObjects.Gender;
+import de.thb.dim.pizzaPronto.valueObjects.MenuVO;
 
 public class TestDriver {
 
@@ -17,8 +26,7 @@ public class TestDriver {
 
 		MenuVO menu = new MenuVO();
 
-		CustomerVO customer1 = new CustomerVO("Mustermann", "Max", "Zuhause", 1, "Male", LocalDate.of(1999, 8, 24));
-		CustomerVO customer2 = new CustomerVO("Mate", "Manni", "Bauwagen", 2, "Male", LocalDate.of(1950, 1, 1));
+		CustomerVO customer1 = new CustomerVO("Mustermann", "Max", "Zuhause", 1, Gender.M, LocalDate.of(1999, 8, 24));
 
 		employees[0] = new ChefVO("Mozarella", "Giovanni", "A la Playa", 50, "0", 1000.0f, 364, Color.blue);
 		employees[1] = new DeliveryManVO("Man", "Pizza", "Pizzaweg", 42, "1", 1.0f, 0, "RalleyDriver1");
@@ -30,32 +38,17 @@ public class TestDriver {
 
 		Ordering order = new Ordering();
 		order.startNewOrder(customer1);
-		System.out.println(order.getCurrentOrder().getState());
+		for(int i = 0; i < 20; i++) {
+			order.addDish(menu.getDish(random.nextInt(17)));
+		}
 		System.out.println(order.getCurrentOrder().toString());
-		System.out.println(order.calculateTotalPrice());
-
-		order.addDish(menu.getDish(random.nextInt(17)));
-		order.addDish(menu.getDish(random.nextInt(17)));
+		order.sortShoppingBasket();
 		System.out.println(order.getCurrentOrder().toString());
-		System.out.println(order.calculateTotalPrice());
-
-		order.deleteDish();
-		order.deleteDish();
-		order.deleteDish();
-		order.deleteDish();
-
+		order.sortShoppingBasketByNumber();
 		System.out.println(order.getCurrentOrder().toString());
-		System.out.println(order.calculateTotalPrice());
-
+		order.sortShoppingBasketByPrice();
+		System.out.println(order.getCurrentOrder().toString());
 		order.confirmOrder();
-		System.out.println(order.getCurrentOrder().getState());
-		order.startService();
-
-		order.addDish(menu.getDish(random.nextInt(17)));
-		order.confirmOrder();
-		System.out.println(order.getCurrentOrder().getState());
-		System.out.println(order.getCurrentOrder().toString());
-		System.out.println(order.calculateTotalPrice());
 		order.startService();
 	}
 }

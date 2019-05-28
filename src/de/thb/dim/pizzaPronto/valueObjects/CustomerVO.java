@@ -1,3 +1,4 @@
+package de.thb.dim.pizzaPronto.valueObjects;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -10,11 +11,11 @@ public class CustomerVO extends PersonVO {
 	 */
 	private static int nextId = 0;
 	private int id;
-	private String gender;
+	private Gender gender;
 	private LocalDate dateOfBirth;
 	private OrderVO order;
 
-	public CustomerVO(String lastName, String firstName, String street, int houseNumber, String gender, LocalDate dob) {
+	public CustomerVO(String lastName, String firstName, String street, int houseNumber, Gender gender, LocalDate dob) {
 		super(lastName, firstName, street, houseNumber);
 		id = nextId;
 		nextId++;
@@ -103,11 +104,11 @@ public class CustomerVO extends PersonVO {
 
 	// getters and setters
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
