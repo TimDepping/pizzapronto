@@ -1,5 +1,6 @@
 package de.thb.dim.pizzaPronto.businessObjects;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
@@ -7,6 +8,7 @@ import de.thb.dim.pizzaPronto.valueObjects.DeliveryManVO;
 import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
 import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
 import de.thb.dim.pizzaPronto.valueObjects.StateOfOrderVO;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
 
 public class Delivery implements IService {
 
@@ -22,10 +24,9 @@ public class Delivery implements IService {
 	}
 
 	@Override
-	public String startService(OrderVO order) {
+	public String startService(OrderVO order) throws NullPointerException, NoCustomerException, IllegalStateException {
+		Objects.requireNonNull(order, "No order available.");
 		EmployeeVO employee = selectEmployee();
-
-		if (order != null) {
 			CustomerVO customer = order.getCustomer();
 			if (customer != null) {
 				if (order.getState() == StateOfOrderVO.READY) {
@@ -34,14 +35,12 @@ public class Delivery implements IService {
 							" Drive to customer %s, Service of DeliveryManVO %s: Order is delivered on //Implement Date ",
 							customer.toString(), employee.toString());
 				} else {
-					return String.format(" Service of DeliveryManVO %s: No order is ready for processing. ",
-							employee.toString());
+					throw new IllegalStateException("No order is ready for processing.");
 				}
 			} else {
-				return String.format(" Service of DeliveryManVO %s: No customer available. ", employee.toString());
+				throw new NoCustomerException("No customer available.");
 			}
-		}
-		return String.format(" Service of DeliveryManVO %s: No order available. ", employee.toString());
+		
 	}
 
 	private EmployeeVO selectEmployee() {

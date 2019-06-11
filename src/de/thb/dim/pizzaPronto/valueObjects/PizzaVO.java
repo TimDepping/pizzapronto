@@ -1,5 +1,5 @@
 package de.thb.dim.pizzaPronto.valueObjects;
-public class PizzaVO extends DishVO {
+public class PizzaVO extends DishVO implements Cloneable {
 
 	/**
 	 * PizzaVO represents a pizza
@@ -19,7 +19,7 @@ public class PizzaVO extends DishVO {
 	 * @param size
 	 */
 
-	PizzaVO(int number, String name, String[] ingredients, float price, int size) {
+	public PizzaVO(int number, String name, String[] ingredients, float price, int size) {
 		this.number = number;
 		this.name = name;
 		this.ingredients = ingredients;
@@ -49,12 +49,6 @@ public class PizzaVO extends DishVO {
 	}
 
 	// Verwaltungsmethoden
-
-	@Override
-	public Object clone() {
-		PizzaVO pizza = new PizzaVO(this.number, this.name, this.ingredients, this.price, this.size);
-		return pizza;
-	}
 
 	@Override
 	public int hashCode() {

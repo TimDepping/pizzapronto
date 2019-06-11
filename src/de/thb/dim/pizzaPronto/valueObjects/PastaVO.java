@@ -1,6 +1,6 @@
 package de.thb.dim.pizzaPronto.valueObjects;
 
-public class PastaVO extends DishVO {
+public class PastaVO extends DishVO implements Cloneable {
 	private int typeOfPasta;
 
 	/**
@@ -35,12 +35,6 @@ public class PastaVO extends DishVO {
 	}
 
 	// Verwaltungsmethoden
-
-	@Override
-	public Object clone() {
-		PastaVO pasta = new PastaVO(this.number, this.name, this.ingredients, this.price, this.typeOfPasta);
-		return pasta;
-	}
 
 	@Override
 	public int hashCode() {

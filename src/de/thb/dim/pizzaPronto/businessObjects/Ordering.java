@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import de.thb.dim.pizzaPronto.controller.IOrdering;
 import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
@@ -10,6 +11,8 @@ import de.thb.dim.pizzaPronto.valueObjects.DishVO;
 import de.thb.dim.pizzaPronto.valueObjects.MenuVO;
 import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
 import de.thb.dim.pizzaPronto.valueObjects.StateOfOrderVO;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoOrderException;
 
 public class Ordering implements IOrdering {
 	private static MenuVO menu;
@@ -29,9 +32,9 @@ public class Ordering implements IOrdering {
 	}
 
 	@Override
-	public OrderVO startNewOrder(CustomerVO customer) {
+	public OrderVO startNewOrder(CustomerVO customer) throws NullPointerException {
+		Objects.requireNonNull(customer, "Customer must not be null.");
 		if (menu != null) {
-			if (customer != null) {
 				setCurrentCustomer(customer);
 				// Change OrderNo
 				if (nextId == 0
@@ -42,67 +45,68 @@ public class Ordering implements IOrdering {
 				setCurrentOrder(new OrderVO(nextId, StateOfOrderVO.STARTED, LocalDateTime.now(), currentCustomer));
 				currentCustomer.setOrder(currentOrder);
 				return currentOrder;
-			}
-			return null;
+			
 		}
 		return null;
 
 	}
 
 	@Override
-	public void addDish(DishVO dish) {
+	public void addDish(DishVO dish) throws NoOrderException {
 		if (currentOrder != null) {
 			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
 				currentOrder.addDish(dish);
 			} else {
-				System.out.println(" Your order is complete, you can not add any dishes. ");
+				throw new IllegalStateException("Your order is complete, you can not add any dishes.");
 			}
 		} else {
-			System.out.println(" Error: There is no order. ");
-
+			throw new NoOrderException("There is no order");
 		}
 	}
 
 	@Override
-	public void deleteDish(DishVO dish) {
+	public void deleteDish(DishVO dish) throws NoOrderException {
 		if (currentOrder != null) {
 			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
 				currentOrder.deleteDish(dish);
 			} else {
-				System.out.println(" Your order is complete, you can not delete any dishes. ");
+				throw new IllegalStateException("Your order is complete, you can not delete any dishes.");
 			}
-		} else {
-			System.out.println(" Error: There is no order. ");
+		}  else {
+			throw new NoOrderException("There is no order");
 		}
 	}
 
 	@Override
-	public float calculateTotalPrice() {
+	public float calculateTotalPrice() throws NoOrderException {
 		if (currentOrder != null) {
 			return currentOrder.calculatePriceDishes();
 		}
-		System.out.println(" Error: There is no order. ");
-		return 0.0f;
+		throw new NoOrderException("There is no order");
 	}
 
 	@Override
-	public void confirmOrder() {
+	public void confirmOrder() throws NoOrderException, NoCustomerException {
 		if (currentOrder != null) {
 			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
 				currentOrder.setState(StateOfOrderVO.CONFIRMED);
-				startService();
+				try {
+					startService();
+				} catch(IllegalStateException | NoCustomerException | NoOrderException e) {
+					System.err.println("Internal error by processing an order: " + e.getMessage());
+				}
 			} else {
-				System.out.println(" Your order can not be confirmed ");
+				throw new IllegalStateException("Your order can not be confirmed");
 			}
 		} else {
-			System.out.println(" Error: There is no order.");
+			throw new NoOrderException("There is no order.");
 		}
 	}
 
-	public void startService() {
+	public void startService() throws NoOrderException, NoCustomerException {
 		if (currentOrder != null) {
 			if (currentOrder.getState() == StateOfOrderVO.STARTED) {
-				System.out.print(" Your order can not be processed. ");
+				throw new IllegalStateException("The order can not be processed.");
 			}
 			if (currentOrder.getState() == StateOfOrderVO.CONFIRMED) {
 				System.out.println(kitchen.startService(currentOrder));
@@ -114,43 +118,51 @@ public class Ordering implements IOrdering {
 				currentOrder.setTimestampDeliveredOrder(LocalDateTime.now());
 				currentOrder.setState(StateOfOrderVO.FINISHED);
 				System.out.println("Order completed: " + currentOrder.toString());
-				currentCustomer.setOrder(null);
 			}
 		} else {
-			System.out.println(" Error: There is no order. ");
+			throw new NoOrderException("There is no order");
 		}
 	}
 	
 	@Override
-	public List<DishVO> sortShoppingBasket() {
-		Collections.sort(currentOrder.getShoppingBasket(), new Comparator<DishVO>() {
+	public List<DishVO> sortShoppingBasket() throws NoOrderException {
+		if (currentOrder != null) {
+			Collections.sort(currentOrder.getShoppingBasket(), new Comparator<DishVO>() {
 
-			@Override
-			public int compare(DishVO o1, DishVO o2) {
-				return o1.compareTo(o2);
+				@Override
+				public int compare(DishVO o1, DishVO o2) {
+					return o1.compareTo(o2);
+				}
+				
+			});
+		return currentOrder.getShoppingBasket();
+		}
+		throw new NoOrderException("There is no order");
+	}
+
+	@Override
+	public List<DishVO> sortShoppingBasketByNumber() throws NoOrderException {
+		if(currentOrder != null) {
+			Collections.sort(currentOrder.getShoppingBasket(), new Comparator<DishVO>() {
+
+				@Override
+				public int compare(DishVO o1, DishVO o2) {
+					return Integer.compare(o1.getNumberOfDish(), o2.getNumberOfDish());
 				}
 			
-		});
+			});
 		return currentOrder.getShoppingBasket();
+		}
+		throw new NoOrderException("There is no order");
 	}
 
 	@Override
-	public List<DishVO> sortShoppingBasketByNumber() {
-		Collections.sort(currentOrder.getShoppingBasket(), new Comparator<DishVO>() {
-
-			@Override
-			public int compare(DishVO o1, DishVO o2) {
-				return Integer.compare(o1.getNumberOfDish(), o2.getNumberOfDish());
-			}
-			
-		});
-		return currentOrder.getShoppingBasket();
-	}
-
-	@Override
-	public List<DishVO> sortShoppingBasketByPrice() {
+	public List<DishVO> sortShoppingBasketByPrice() throws NoOrderException{
+		if(currentOrder != null) {
 		currentOrder.getShoppingBasket().sort((DishVO o1, DishVO o2) -> Float.compare(o1.getPrice(), o2.getPrice()));
 		return currentOrder.getShoppingBasket();
+		}
+		throw new NoOrderException("There is no order");
 	}
 
 	// Verwaltungsmethoden

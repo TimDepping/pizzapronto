@@ -1,7 +1,7 @@
 package de.thb.dim.pizzaPronto.valueObjects;
 import java.util.Arrays;
 
-public abstract class DishVO implements Comparable<DishVO>{
+public abstract class DishVO implements Comparable<DishVO>, Cloneable {
 
 	/**
 	 * DishVO represents a dish
@@ -56,6 +56,17 @@ public abstract class DishVO implements Comparable<DishVO>{
 	}
 
 	// Verwaltungsmethoden
+	
+	@Override
+	public Object clone() {
+		Object other = null;
+		try {
+			other = super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError();
+		}
+		return other;
+	}
 
 	@Override
 	public int hashCode() {
@@ -95,12 +106,7 @@ public abstract class DishVO implements Comparable<DishVO>{
 	public String toString() {
 		return String.format("Dish: %s %s, Price: %s Euro", getNumberOfDish(), getNameOfDish(), this.price);
 	}
-
-	/*
-	 * public Object clone() { DishVO dish = new DishVO(this.number, this.name,
-	 * this.ingredients, this.price); return dish; }
-	 */
-
+	
 	public String ingredientsToString() {
 		StringBuilder text = new StringBuilder("");
 		if (ingredients != null) {

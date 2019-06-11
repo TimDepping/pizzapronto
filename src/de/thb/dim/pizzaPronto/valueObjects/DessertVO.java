@@ -1,6 +1,6 @@
 package de.thb.dim.pizzaPronto.valueObjects;
 
-public class DessertVO extends DishVO {
+public class DessertVO extends DishVO implements Cloneable {
 
 	/**
 	 * DessertVO represents a dessert
@@ -31,12 +31,6 @@ public class DessertVO extends DishVO {
 	}
 
 	// Verwaltungsmethoden
-
-	@Override
-	public Object clone() {
-		DessertVO dessert = new DessertVO(this.number, this.name, this.price);
-		return dessert;
-	}
 
 	@Override
 	public int hashCode() {
