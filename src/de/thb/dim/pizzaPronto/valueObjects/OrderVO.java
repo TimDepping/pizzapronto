@@ -80,6 +80,9 @@ public class OrderVO {
 	// get dish at index from shopping basket
 
 	public DishVO getDish(int index) {
+		if(index <= getNumberOfDishes()) {
+			return null;
+		}
 		return shoppingBasket.get(index);
 	}
 

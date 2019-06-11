@@ -10,6 +10,11 @@ import de.thb.dim.pizzaPronto.valueObjects.DeliveryManVO;
 import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
 import de.thb.dim.pizzaPronto.valueObjects.Gender;
 import de.thb.dim.pizzaPronto.valueObjects.MenuVO;
+import de.thb.dim.pizzaPronto.valueObjects.PizzaVO;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.CustomerNoDateOfBirthException;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.CustomerTooYoungException;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoOrderException;
 
 public class TestDriver {
 
@@ -26,29 +31,79 @@ public class TestDriver {
 
 		MenuVO menu = new MenuVO();
 
-		CustomerVO customer1 = new CustomerVO("Mustermann", "Max", "Zuhause", 1, Gender.M, LocalDate.of(1999, 8, 24));
+		try {
+			CustomerVO customer1 = new CustomerVO("Mustermann", "Max", "Zuhause", 1, Gender.M, LocalDate.of(1990, 01, 01));
+			employees[0] = new ChefVO("Mozarella", "Giovanni", "A la Playa", 50, "0", 1000.0f, 364, Color.blue);
+			employees[1] = new DeliveryManVO("Man", "Pizza", "Pizzaweg", 42, "1", 1.0f, 0, "RalleyDriver1");
+			employees[2] = new DeliveryManVO("Tias", "Ralley", "Waldweg", 2, "2", 10.0f, 30, "LitDriverThe1st");
 
-		employees[0] = new ChefVO("Mozarella", "Giovanni", "A la Playa", 50, "0", 1000.0f, 364, Color.blue);
-		employees[1] = new DeliveryManVO("Man", "Pizza", "Pizzaweg", 42, "1", 1.0f, 0, "RalleyDriver1");
-		employees[2] = new DeliveryManVO("Tias", "Ralley", "Waldweg", 2, "2", 10.0f, 30, "LitDriverThe1st");
+			System.out.println(menu);
 
-		System.out.println(menu);
+			Random random = new Random();
 
-		Random random = new Random();
-
-		Ordering order = new Ordering();
-		order.startNewOrder(customer1);
-		for(int i = 0; i < 20; i++) {
-			order.addDish(menu.getDish(random.nextInt(17)));
+			Ordering order = new Ordering();
+			order.startNewOrder(customer1);
+			for(int i = 0; i < 20; i++) {
+				try {
+					order.addDish(menu.getDish(random.nextInt(17)));
+				} catch (NoOrderException | IllegalStateException e) {
+					System.err.println(e.getMessage());
+				}
+			}
+			
+			PizzaVO myPizza = new PizzaVO(33, "MyPizza", new String[] { "Schinken", "Käse", "Noch mehr Käse" }, 7.40f, 2);
+			try {
+				order.addDish(myPizza);
+			} catch (NoOrderException e) {
+				System.err.println(e.getMessage());
+			}
+			
+			System.out.println(order.getCurrentOrder().toString());
+			try {
+				order.deleteDish(myPizza);
+			} catch (NoOrderException e) {
+				System.err.println(e.getMessage());
+			}
+			System.out.println(order.getCurrentOrder().toString());
+			
+			System.out.println(order.getCurrentOrder().toString());
+			try {
+				order.sortShoppingBasket();
+			} catch (NoOrderException e) {
+				System.err.println(e.getMessage());
+			}
+			System.out.println(order.getCurrentOrder().toString());
+			try {
+				order.sortShoppingBasketByNumber();
+			} catch (NoOrderException e) {
+				System.err.println(e.getMessage());
+			}
+			System.out.println(order.getCurrentOrder().toString());
+			try {
+				order.sortShoppingBasketByPrice();
+			} catch (NoOrderException e) {
+				System.err.println(e.getMessage());
+			}
+			System.out.println(order.getCurrentOrder().toString());
+			try {
+				order.confirmOrder();
+			} catch (NoOrderException e) {
+				System.err.println(e.getMessage());
+			} catch (NoCustomerException e) {
+				System.err.println(e.getMessage());
+			}
+			try {
+				order.startService();
+			} catch (NoOrderException e) {
+				System.err.println(e.getMessage());
+			} catch (NoCustomerException e) {
+				System.err.println(e.getMessage());
+			}
+		} catch (CustomerTooYoungException e) {
+			System.err.println(e.getMessage());
+		} catch (CustomerNoDateOfBirthException e) {
+			System.err.println(e.getMessage());
 		}
-		System.out.println(order.getCurrentOrder().toString());
-		order.sortShoppingBasket();
-		System.out.println(order.getCurrentOrder().toString());
-		order.sortShoppingBasketByNumber();
-		System.out.println(order.getCurrentOrder().toString());
-		order.sortShoppingBasketByPrice();
-		System.out.println(order.getCurrentOrder().toString());
-		order.confirmOrder();
-		order.startService();
+
 	}
 }

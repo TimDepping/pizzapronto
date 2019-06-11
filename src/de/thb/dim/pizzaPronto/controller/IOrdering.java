@@ -4,23 +4,25 @@ import java.util.List;
 import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
 import de.thb.dim.pizzaPronto.valueObjects.DishVO;
 import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoOrderException;
 
 public interface IOrdering {
 
 	public OrderVO startNewOrder(CustomerVO customer);
 
-	public void addDish(DishVO dish);
+	public void addDish(DishVO dish) throws NoOrderException;
 
-	public void deleteDish(DishVO dish);
+	public void deleteDish(DishVO dish) throws NoOrderException;
 
-	public float calculateTotalPrice();
+	public float calculateTotalPrice() throws NoOrderException;
 
-	public void confirmOrder();
+	public void confirmOrder() throws NoOrderException, NoCustomerException;
 	
-	public List<DishVO> sortShoppingBasket();
+	public List<DishVO> sortShoppingBasket() throws NoOrderException;
 	
-	public List<DishVO> sortShoppingBasketByNumber();
+	public List<DishVO> sortShoppingBasketByNumber() throws NoOrderException;
 	
-	public List<DishVO> sortShoppingBasketByPrice();
+	public List<DishVO> sortShoppingBasketByPrice() throws NoOrderException;
 
 }

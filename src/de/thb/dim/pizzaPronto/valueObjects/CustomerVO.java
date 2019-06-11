@@ -2,6 +2,10 @@ package de.thb.dim.pizzaPronto.valueObjects;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.CustomerNoDateOfBirthException;
+import de.thb.dim.pizzaPronto.valueObjects.exceptions.CustomerTooYoungException;
 
 public class CustomerVO extends PersonVO {
 	/**
@@ -15,39 +19,37 @@ public class CustomerVO extends PersonVO {
 	private LocalDate dateOfBirth;
 	private OrderVO order;
 
-	public CustomerVO(String lastName, String firstName, String street, int houseNumber, Gender gender, LocalDate dob) {
+	public CustomerVO(String lastName, String firstName, String street, int houseNumber, Gender gender, LocalDate dob) throws CustomerTooYoungException, CustomerNoDateOfBirthException {
 		super(lastName, firstName, street, houseNumber);
 		id = nextId;
 		nextId++;
 		setGender(gender);
 		setDateOfBirth(dob);
+		//add setOrder
 	}
 
-	public CustomerVO(String lastName, String firstName, LocalDate dob) {
+	public CustomerVO(String lastName, String firstName, LocalDate dob) throws CustomerTooYoungException, CustomerNoDateOfBirthException {
 		this(lastName, firstName, null, 0, null, dob);
 	}
 
-	public CustomerVO() {
-		this(null, null, null, 0, null, null);
-	}
-
-	public short calculateAge() {
+	public short calculateAge() throws CustomerNoDateOfBirthException {
 		short calculatedAge = -1;
 		Period age;
 		LocalDate today = LocalDate.now();
-
+		
 		if (dateOfBirth != null) {
 			age = Period.between(dateOfBirth, today);
 			calculatedAge = (short) age.getYears();
+			return calculatedAge;
 		}
-		return calculatedAge;
+		throw new CustomerNoDateOfBirthException("calculateAge Internal error: No date of birth");
 	}
 
-	String dobToString() {
-		if (dateOfBirth != null) {
-			return dateOfBirth.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+	String dobToString() throws CustomerNoDateOfBirthException{
+		if(dateOfBirth ==  null) {
+			throw new CustomerNoDateOfBirthException("dobToString Internal error: No date of birth");
 		}
-		return "Not available.";
+		return dateOfBirth.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
 	}
 
 	Boolean hasOrder() {
@@ -98,8 +100,14 @@ public class CustomerVO extends PersonVO {
 
 	@Override
 	public String toString() {
-		return String.format("Customer: %s %s\n gender: %s\n date of birth: %s, age: %s\n\n", this.firstName,
-				this.lastName, this.gender, dobToString(), this.calculateAge());
+		String string = "";
+		try {
+			string = String.format("Customer: %s %s\n gender: %s\n date of birth: %s, age: %s\n\n", this.firstName,
+					this.lastName, this.gender, dobToString(), calculateAge());
+		} catch (CustomerNoDateOfBirthException e) {
+			System.err.println(e.getMessage());
+		}
+		return string;
 	}
 
 	// getters and setters
@@ -116,11 +124,19 @@ public class CustomerVO extends PersonVO {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) throws NullPointerException, CustomerTooYoungException, CustomerNoDateOfBirthException {
+		Objects.requireNonNull(dateOfBirth, "dob must not be null");
+		
 		this.dateOfBirth = dateOfBirth;
-		if (this.calculateAge() < 18) {
-			this.dateOfBirth = null;
+		
+		try {
+			if(this.calculateAge() < 18) {
+				throw new CustomerTooYoungException("Customer is not an adult");
+			} 
+		} catch(CustomerNoDateOfBirthException e) {
+			System.err.println(e.getMessage());
 		}
+		
 	}
 
 	public int getId() {

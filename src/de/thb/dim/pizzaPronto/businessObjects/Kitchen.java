@@ -1,6 +1,7 @@
 package de.thb.dim.pizzaPronto.businessObjects;
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Objects;
 
 import de.thb.dim.pizzaPronto.valueObjects.ChefVO;
 import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
@@ -17,15 +18,13 @@ public class Kitchen implements IService {
 	}
 
 	@Override
-	public String startService(OrderVO order) {
-		if (order != null) {
-			if (order.getState() == StateOfOrderVO.CONFIRMED) {
-				order.setState(StateOfOrderVO.READY);
-				return String.format(" Service of ChefVO %s: Order is ready. ", employees[0].toString());
-			}
-			return String.format(" Service of ChefVO %s: No order for processing available. ", employees[0].toString());
+	public String startService(OrderVO order) throws NullPointerException, IllegalStateException {
+		Objects.requireNonNull(order, "No order available.");
+		if (order.getState() == StateOfOrderVO.CONFIRMED) {
+			order.setState(StateOfOrderVO.READY);
+			return String.format(" Service of ChefVO %s: Order is ready. ", employees[0].toString());
 		}
-		return String.format(" Service of ChefVO %s: No order available. ", employees[0].toString());
+		throw new IllegalStateException("No order for processing available.");
 	}
 
 	// Verwaltungsmethoden
