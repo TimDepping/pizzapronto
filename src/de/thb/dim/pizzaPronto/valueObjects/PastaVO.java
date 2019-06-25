@@ -19,7 +19,7 @@ public class PastaVO extends DishVO implements Cloneable {
 	 * @param pastaType
 	 */
 
-	PastaVO(int number, String name, String[] ingredients, float price, int pastaType) {
+	public PastaVO(int number, String name, String[] ingredients, float price, int pastaType) {
 		this.number = number;
 		this.name = name;
 		this.ingredients = ingredients;
@@ -30,7 +30,7 @@ public class PastaVO extends DishVO implements Cloneable {
 	/**
 	 * Default constructor
 	 */
-	PastaVO() {
+	public PastaVO() {
 		this(0, null, null, 0.0f, 0);
 	}
 

@@ -16,7 +16,7 @@ public class DessertVO extends DishVO implements Cloneable {
 	 * @param price
 	 */
 
-	DessertVO(int number, String name, float price) {
+	public DessertVO(int number, String name, float price) {
 		this.number = number;
 		this.name = name;
 		this.price = price;
@@ -26,7 +26,7 @@ public class DessertVO extends DishVO implements Cloneable {
 	 * default constructor
 	 */
 
-	DessertVO() {
+	public DessertVO() {
 		this(0, null, 0.0f);
 	}
 

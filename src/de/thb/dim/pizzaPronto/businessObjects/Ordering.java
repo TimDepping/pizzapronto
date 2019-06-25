@@ -5,14 +5,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
+import de.thb.dim.pizzaPronto.businessObjects.exceptions.NoCustomerException;
+import de.thb.dim.pizzaPronto.businessObjects.exceptions.NoOrderException;
 import de.thb.dim.pizzaPronto.controller.IOrdering;
 import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
 import de.thb.dim.pizzaPronto.valueObjects.DishVO;
 import de.thb.dim.pizzaPronto.valueObjects.MenuVO;
 import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
 import de.thb.dim.pizzaPronto.valueObjects.StateOfOrderVO;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoOrderException;
 
 public class Ordering implements IOrdering {
 	private static MenuVO menu;
@@ -33,7 +33,7 @@ public class Ordering implements IOrdering {
 
 	@Override
 	public OrderVO startNewOrder(CustomerVO customer) throws NullPointerException {
-		Objects.requireNonNull(customer, "Customer must not be null.");
+		Objects.requireNonNull(customer, "Customer must not be null");
 		if (menu != null) {
 				setCurrentCustomer(customer);
 				// Change OrderNo
@@ -60,7 +60,7 @@ public class Ordering implements IOrdering {
 				throw new IllegalStateException("Your order is complete, you can not add any dishes.");
 			}
 		} else {
-			throw new NoOrderException("There is no order");
+			throw new NoOrderException("There is no order.");
 		}
 	}
 
@@ -73,7 +73,7 @@ public class Ordering implements IOrdering {
 				throw new IllegalStateException("Your order is complete, you can not delete any dishes.");
 			}
 		}  else {
-			throw new NoOrderException("There is no order");
+			throw new NoOrderException("There is no order.");
 		}
 	}
 
@@ -82,7 +82,7 @@ public class Ordering implements IOrdering {
 		if (currentOrder != null) {
 			return currentOrder.calculatePriceDishes();
 		}
-		throw new NoOrderException("There is no order");
+		throw new NoOrderException("There is no order.");
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class Ordering implements IOrdering {
 					System.err.println("Internal error by processing an order: " + e.getMessage());
 				}
 			} else {
-				throw new IllegalStateException("Your order can not be confirmed");
+				throw new IllegalStateException("Your order can not be confirmed.");
 			}
 		} else {
 			throw new NoOrderException("There is no order.");
@@ -120,7 +120,7 @@ public class Ordering implements IOrdering {
 				System.out.println("Order completed: " + currentOrder.toString());
 			}
 		} else {
-			throw new NoOrderException("There is no order");
+			throw new NoOrderException("There is no order.");
 		}
 	}
 	
@@ -137,7 +137,7 @@ public class Ordering implements IOrdering {
 			});
 		return currentOrder.getShoppingBasket();
 		}
-		throw new NoOrderException("There is no order");
+		throw new NoOrderException("There is no order.");
 	}
 
 	@Override
@@ -153,16 +153,16 @@ public class Ordering implements IOrdering {
 			});
 		return currentOrder.getShoppingBasket();
 		}
-		throw new NoOrderException("There is no order");
+		throw new NoOrderException("There is no order.");
 	}
 
 	@Override
 	public List<DishVO> sortShoppingBasketByPrice() throws NoOrderException{
 		if(currentOrder != null) {
-		currentOrder.getShoppingBasket().sort((DishVO o1, DishVO o2) -> Float.compare(o1.getPrice(), o2.getPrice()));
-		return currentOrder.getShoppingBasket();
+			currentOrder.getShoppingBasket().sort((DishVO o1, DishVO o2) -> Float.compare(o1.getPrice(), o2.getPrice()));
+			return currentOrder.getShoppingBasket();
 		}
-		throw new NoOrderException("There is no order");
+		throw new NoOrderException("There is no order.");
 	}
 
 	// Verwaltungsmethoden
@@ -225,7 +225,9 @@ public class Ordering implements IOrdering {
 	}
 
 	public void setCurrentOrder(OrderVO currentOrder) {
-		this.currentOrder = currentOrder;
+		if(currentOrder != null) {
+			this.currentOrder = currentOrder;
+		}
 	}
 
 	public CustomerVO getCurrentCustomer() {

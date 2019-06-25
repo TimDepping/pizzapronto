@@ -36,7 +36,7 @@ public class PizzaVO extends DishVO implements Cloneable {
 	 * @param price
 	 */
 
-	PizzaVO(int number, String name, String[] ingredients, float price) {
+	public PizzaVO(int number, String name, String[] ingredients, float price) {
 		this(number, name, ingredients, price, 0);
 	}
 
@@ -44,7 +44,7 @@ public class PizzaVO extends DishVO implements Cloneable {
 	 * Default constructor
 	 */
 
-	PizzaVO() {
+	public PizzaVO() {
 		this(0, null, null, 0.0f, 0);
 	}
 
@@ -75,12 +75,14 @@ public class PizzaVO extends DishVO implements Cloneable {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer(getNumberOfDish() + " " + getNameOfDish());
-		for (var i = 0; i < ingredients.length; i++) {
-			if (ingredients[i] != null) {
-				sb.append(ingredients[i]);
-			}
-			if (i < ingredients.length - 1) {
-				sb.append(", ");
+		if(ingredients != null) {
+			for (var i = 0; i < ingredients.length; i++) {
+				if (ingredients[i] != null) {
+					sb.append(ingredients[i]);
+				}
+				if (i < ingredients.length - 1) {
+					sb.append(", ");
+				}
 			}
 		}
 		sb.append("\n\t\t\tPrice: " + price + " Euro");
