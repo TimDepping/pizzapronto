@@ -1,4 +1,4 @@
-package de.thb.dim.pizzaPronto.valueObjects.exceptions;
+package de.thb.dim.pizzaPronto.businessObjects.exceptions;
 
 public class NoCustomerException extends Exception {
 

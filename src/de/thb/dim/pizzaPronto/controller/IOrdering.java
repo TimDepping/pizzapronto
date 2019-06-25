@@ -1,11 +1,11 @@
 package de.thb.dim.pizzaPronto.controller;
 import java.util.List;
 
+import de.thb.dim.pizzaPronto.businessObjects.exceptions.NoCustomerException;
+import de.thb.dim.pizzaPronto.businessObjects.exceptions.NoOrderException;
 import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
 import de.thb.dim.pizzaPronto.valueObjects.DishVO;
 import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoOrderException;
 
 public interface IOrdering {
 

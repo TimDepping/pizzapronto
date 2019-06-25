@@ -1,11 +1,14 @@
 package de.thb.dim.pizzaPronto.valueObjects;
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class OrderVO {
+public class OrderVO implements Serializable {
 
+	private static final long serialVersionUID = 6026366282250397799L;
+	
 	/**
 	 * OrderVO represents an order
 	 * 
@@ -76,13 +79,16 @@ public class OrderVO {
 	public void deleteDish(DishVO dish) {
 		shoppingBasket.remove(dish);
 	}
+	
+	// deletes dish at index from shopping basket
+	
+	public void deleteDish(int index) {
+		shoppingBasket.remove(index);
+	}
 
 	// get dish at index from shopping basket
 
 	public DishVO getDish(int index) {
-		if(index <= getNumberOfDishes()) {
-			return null;
-		}
 		return shoppingBasket.get(index);
 	}
 
@@ -207,6 +213,11 @@ public class OrderVO {
 
 	public void setState(StateOfOrderVO state) {
 		this.state = state;
+	}
+
+	public void setShoppingBasket(List<DishVO> dishes) {
+		this.shoppingBasket = dishes;
+		
 	}
 
 }

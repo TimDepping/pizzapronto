@@ -3,12 +3,12 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
+import de.thb.dim.pizzaPronto.businessObjects.exceptions.NoCustomerException;
 import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
 import de.thb.dim.pizzaPronto.valueObjects.DeliveryManVO;
 import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
 import de.thb.dim.pizzaPronto.valueObjects.OrderVO;
 import de.thb.dim.pizzaPronto.valueObjects.StateOfOrderVO;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
 
 public class Delivery implements IService {
 

@@ -17,6 +17,10 @@ public class MenuVO {
 	public MenuVO() {
 		initMenu();
 	}
+	
+	public MenuVO(ArrayList<DishVO> dishes) {
+		this.dishes = dishes;
+	}
 
 	private void initMenu() {
 		this.dishes = new ArrayList<DishVO>();

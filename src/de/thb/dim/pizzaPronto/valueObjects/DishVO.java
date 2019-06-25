@@ -1,8 +1,11 @@
 package de.thb.dim.pizzaPronto.valueObjects;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public abstract class DishVO implements Comparable<DishVO>, Cloneable {
+public abstract class DishVO implements Comparable<DishVO>, Cloneable, Serializable {
 
+	private static final long serialVersionUID = 4190100940469548542L;
+	
 	/**
 	 * DishVO represents a dish
 	 * 
@@ -155,7 +158,9 @@ public abstract class DishVO implements Comparable<DishVO>, Cloneable {
 	}
 
 	public void setPrice(float price) {
-		this.price = price;
+		if(price >= 0) {
+			this.price = price;
+		}
 	}
 
 }

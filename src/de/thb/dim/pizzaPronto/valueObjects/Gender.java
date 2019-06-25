@@ -18,18 +18,14 @@ public enum Gender {
 	}
 	
 	public String toString() {
-		String gender = "";
-		switch(number) {
-		case 1:
-			gender = "male";
-		case 2:
-			gender = "female";
-		case 3:
-			gender = "intersex";
-		default:
-			gender = "unknown";
-		}
-		
-		return gender;
+		if (number == 1)
+			return "male";
+		if (number == 2)
+			return "female";
+		if (number == 3)
+			return "intersex";
+		else
+			return "unknown";
 	}
+	
 }

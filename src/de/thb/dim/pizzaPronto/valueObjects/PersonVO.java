@@ -1,7 +1,11 @@
 package de.thb.dim.pizzaPronto.valueObjects;
 
-public abstract class PersonVO {
+import java.io.Serializable;
 
+public abstract class PersonVO implements Serializable {
+
+	private static final long serialVersionUID = 4350523878107858152L;
+	
 	/**
 	 * PersonVO represents a person
 	 * 
@@ -98,19 +102,19 @@ public abstract class PersonVO {
 
 	// getters and setters
 
-	protected String getLastName() {
+	public String getLastName() {
 		return lastName;
 	}
 
-	protected void setLastName(String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	protected String getFirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-	protected void setFirstName(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 

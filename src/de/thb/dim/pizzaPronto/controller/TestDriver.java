@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.Random;
 
 import de.thb.dim.pizzaPronto.businessObjects.Ordering;
+import de.thb.dim.pizzaPronto.businessObjects.exceptions.NoCustomerException;
+import de.thb.dim.pizzaPronto.businessObjects.exceptions.NoOrderException;
 import de.thb.dim.pizzaPronto.valueObjects.ChefVO;
 import de.thb.dim.pizzaPronto.valueObjects.CustomerVO;
 import de.thb.dim.pizzaPronto.valueObjects.DeliveryManVO;
@@ -11,10 +13,7 @@ import de.thb.dim.pizzaPronto.valueObjects.EmployeeVO;
 import de.thb.dim.pizzaPronto.valueObjects.Gender;
 import de.thb.dim.pizzaPronto.valueObjects.MenuVO;
 import de.thb.dim.pizzaPronto.valueObjects.PizzaVO;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.CustomerNoDateOfBirthException;
 import de.thb.dim.pizzaPronto.valueObjects.exceptions.CustomerTooYoungException;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoCustomerException;
-import de.thb.dim.pizzaPronto.valueObjects.exceptions.NoOrderException;
 
 public class TestDriver {
 
@@ -44,11 +43,8 @@ public class TestDriver {
 			Ordering order = new Ordering();
 			order.startNewOrder(customer1);
 			for(int i = 0; i < 20; i++) {
-				try {
-					order.addDish(menu.getDish(random.nextInt(17)));
-				} catch (NoOrderException | IllegalStateException e) {
-					System.err.println(e.getMessage());
-				}
+				order.addDish(menu.getDish(random.nextInt(17)));
+				
 			}
 			
 			PizzaVO myPizza = new PizzaVO(33, "MyPizza", new String[] { "Schinken", "Käse", "Noch mehr Käse" }, 7.40f, 2);
@@ -101,7 +97,7 @@ public class TestDriver {
 			}
 		} catch (CustomerTooYoungException e) {
 			System.err.println(e.getMessage());
-		} catch (CustomerNoDateOfBirthException e) {
+		} catch (NoOrderException e) {
 			System.err.println(e.getMessage());
 		}
 
